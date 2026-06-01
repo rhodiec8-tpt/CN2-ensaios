@@ -53,7 +53,8 @@ a{color:inherit;text-decoration:none}
 .lf-err{color:var(--red);font-size:13px;margin-top:11px;font-weight:600;min-height:18px}
 
 #app{display:none}
-header.top{position:relative;overflow:hidden;background:linear-gradient(150deg,var(--gd),var(--green) 58%,#17563e);color:var(--paper);border-radius:0 0 30px 30px;box-shadow:var(--shl)}
+header.top{position:relative;overflow:hidden;background:linear-gradient(150deg,var(--gd),var(--green) 58%,#17563e);color:var(--paper);border-radius:0 0 30px 30px;box-shadow:var(--shl);transition:max-height .3s ease,opacity .25s ease}
+header.top.compact{max-height:0;opacity:0;box-shadow:none;pointer-events:none}
 header.top::before{content:"";position:absolute;inset:0;opacity:.42;pointer-events:none;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.16) 1px,transparent 0);background-size:21px 21px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 90%);mask-image:linear-gradient(180deg,#000,transparent 90%)}
 .top-in{position:relative;padding:22px 16px 20px;max-width:940px;margin:0 auto}
 .top-r1{display:flex;align-items:center;gap:13px}
@@ -90,11 +91,28 @@ main{padding-top:20px}
 .sh h2{font-family:var(--df);font-weight:900;font-size:23px;letter-spacing:-.01em}
 .sh .hn{font-size:12.5px;color:var(--ink3)}
 
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
-.st{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:15px 14px;box-shadow:var(--sh);position:relative;overflow:hidden}
+/* ===== HERO (dashboard) ===== */
+.hero{position:relative;border-radius:26px;overflow:hidden;margin-bottom:-46px;box-shadow:var(--shl)}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(155deg,#0a3022 0%,var(--gd) 45%,var(--green) 100%)}
+.hero-bg::before{content:"";position:absolute;inset:0;opacity:.5;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.14) 1px,transparent 0);background-size:22px 22px}
+.hero-bg::after{content:"";position:absolute;right:-80px;top:-90px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(214,174,84,.34),transparent 68%)}
+.hero-in{position:relative;padding:30px 24px 64px;color:var(--paper);text-align:center;display:flex;flex-direction:column;align-items:center}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.hero-kick{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--golds);font-weight:800}
+.hero-h1{font-family:var(--df);font-weight:900;font-size:36px;line-height:1;margin-top:6px;letter-spacing:-.01em}
+.hero-h1 em{font-style:italic;font-weight:500;color:var(--golds)}
+.hero-logo{width:84px;height:84px;flex:none;object-fit:contain;border-radius:18px;background:rgba(255,255,255,.96);padding:5px;box-shadow:0 10px 30px rgba(0,0,0,.28);border:1.5px solid rgba(214,174,84,.5)}
+.hero-lead{font-family:var(--df);font-weight:600;font-style:italic;font-size:19px;color:#fff;margin-top:20px;line-height:1.25;max-width:30ch}
+.hero-sub{font-size:13.5px;line-height:1.55;color:rgba(244,239,226,.8);margin-top:9px;max-width:46ch}
+.hero-chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px;justify-content:center}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(214,174,84,.4);backdrop-filter:blur(8px);border-radius:30px;padding:7px 15px;font-size:12px;font-weight:600;color:rgba(244,239,226,.92);display:inline-flex;align-items:center;gap:6px}
+.chip b{font-family:var(--df);font-weight:900;font-size:15px;color:var(--golds)}
+
+.stats{position:relative;z-index:2;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:18px;padding:0 4px}
+.st{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:15px 13px;box-shadow:var(--shl);position:relative;overflow:hidden}
 .st::after{content:"";position:absolute;right:-16px;top:-16px;width:50px;height:50px;border-radius:50%;background:var(--accent,rgba(47,138,100,.1))}
-.st .n{font-family:var(--df);font-weight:900;font-size:30px;line-height:1;color:var(--gd)}
-.st .l{font-size:11px;color:var(--ink3);margin-top:6px;font-weight:600}
+.st .n{font-family:var(--df);font-weight:900;font-size:27px;line-height:1;color:var(--gd)}
+.st .l{font-size:10.5px;color:var(--ink3);margin-top:6px;font-weight:600}
 .st.g .n{color:var(--gb)}.st.g::after{background:rgba(47,138,100,.13)}
 .st.a .n{color:var(--amber)}.st.a::after{background:rgba(194,128,26,.13)}
 .st.r .n{color:var(--red)}.st.r::after{background:rgba(178,65,44,.12)}
@@ -126,6 +144,12 @@ main{padding-top:20px}
 .psum .pc{display:flex;align-items:center;gap:7px;background:var(--paper);border:1px solid var(--line);border-radius:11px;padding:7px 11px}
 .psum .pc .nm{font-size:12.5px;font-weight:700}
 .psum .pc .ct{font-size:11px;color:var(--gb);font-weight:800;background:var(--g-light);padding:1px 7px;border-radius:20px}
+
+.nx{display:flex;align-items:center;gap:12px;padding:10px;border-radius:13px;cursor:pointer;transition:.15s;border:1px solid transparent}
+.nx:hover{background:var(--paper);border-color:var(--line)}
+.nx-d{flex:none;width:46px;text-align:center;background:var(--g-light);color:var(--gd);border-radius:11px;padding:7px 3px;line-height:1.1;font-size:10px;font-weight:700;text-transform:uppercase}
+.nx-d b{display:block;font-family:var(--df);font-weight:900;font-size:19px}
+.nx-m{flex:1;min-width:0}.nx-t{font-weight:700;font-size:14px}.nx-s{font-size:12px;color:var(--ink3);margin-top:1px}
 
 .cv-toggle{display:inline-flex;gap:4px;background:var(--paper2);padding:4px;border-radius:13px;margin-bottom:16px}
 .cv-btn{border:none;background:transparent;border-radius:10px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--bf);color:var(--ink2);transition:.15s}
@@ -265,7 +289,9 @@ details.ed summary::before{content:"✎";font-size:13px}
 .footer .lo:hover{border-color:var(--red);color:var(--red)}
 
 @media(max-width:600px){
-  .stats{grid-template-columns:repeat(2,1fr)}
+  .stats{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:38%;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+  .stats::-webkit-scrollbar{display:none}
+  .st{scroll-snap-align:start}
   .cal-months{grid-template-columns:1fr}
   .top-r2{flex-direction:column}
   .kpi{justify-content:flex-start}
@@ -276,7 +302,65 @@ details.ed summary::before{content:"✎";font-size:13px}
   .eq-i{width:72px}
   .sh h2{font-size:21px}
   .addgrid{grid-template-columns:1fr}
+  .hero{border-radius:22px;margin-bottom:-42px}
+  .hero-in{padding:22px 19px 58px}
+  .hero-h1{font-size:29px}
+  .hero-logo{width:64px;height:64px}
+  .hero-lead{font-size:16px;margin-top:16px}
+  .hero-sub{font-size:12.5px}
 }
+@media(min-width:601px) and (max-width:760px){
+  .stats{grid-template-columns:repeat(3,1fr)}
+}
+
+/* ===== MODAL (YouTube + instrumentos) ===== */
+.modal{position:fixed;inset:0;z-index:400;background:rgba(10,30,22,.62);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:18px;animation:fade .2s}
+.modal.show{display:flex}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.modal-box{background:var(--card);border-radius:20px;box-shadow:var(--shl);width:100%;max-width:560px;max-height:88vh;overflow:hidden;display:flex;flex-direction:column;animation:rise .3s cubic-bezier(.2,.7,.3,1)}
+.modal-head{display:flex;align-items:center;gap:10px;padding:15px 18px;border-bottom:1px solid var(--line2);font-family:var(--df);font-weight:600;font-size:16px;color:var(--gd)}
+.modal-head span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.modal-x{flex:none;border:none;background:var(--paper2);width:30px;height:30px;border-radius:50%;font-size:14px;cursor:pointer;color:var(--ink2);font-weight:700;transition:.15s}
+.modal-x:hover{background:var(--red);color:#fff}
+.yt-box{max-width:680px}
+.yt-frame{position:relative;width:100%;aspect-ratio:16/9;background:#000}
+.yt-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt-open{display:block;text-align:center;padding:13px;font-size:13px;font-weight:700;color:var(--gb);border-top:1px solid var(--line2)}
+.part-body{padding:16px 18px;overflow-y:auto}
+.part-intro{font-size:12.5px;color:var(--ink3);margin-bottom:14px}
+.part-row{margin-bottom:11px;border:1px solid var(--line);border-radius:13px;overflow:hidden}
+.part-h{display:flex;align-items:center;gap:11px;padding:12px 14px;cursor:pointer;background:var(--paper)}
+.part-h .pic{width:34px;height:34px;flex:none;display:grid;place-items:center;background:var(--g-light);border-radius:9px;font-size:17px}
+.part-h .pnm{flex:1;font-weight:700;font-size:14px}
+.part-h .pst{font-size:10.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:20px}
+.pst-has{background:rgba(47,138,100,.15);color:var(--gd)}.pst-no{background:rgba(22,39,30,.06);color:var(--ink3)}
+.part-c{padding:0 14px 14px}
+.part-c .ta{margin-top:11px}
+.part-c .read-pre{margin-top:11px}
+
+/* ===== presença: seletor de dia + salvar ===== */
+.pres-day{margin:6px 0 14px}
+.pres-day-l{font-size:10.5px;font-weight:800;color:var(--gold);letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px}
+.pres-self{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--gd),var(--green));border-radius:14px;padding:13px 15px;color:var(--paper);flex-wrap:wrap}
+.pres-self .pself-i{font-size:13px;font-weight:600;flex:1;min-width:140px}
+.pres-self .pself-i b{color:var(--golds)}
+.pself-btn{border:none;border-radius:11px;padding:10px 18px;font-size:13.5px;font-weight:800;cursor:pointer;font-family:var(--bf);transition:.15s;flex:none}
+.pself-in{background:var(--golds);color:var(--gd)}
+.pself-in:hover{background:#e7c876}
+.pself-out{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.pself-out:hover{background:rgba(255,255,255,.26)}
+.pself-tag{font-size:11px;font-weight:700;color:#9bf2c6;display:inline-flex;align-items:center;gap:5px}
+
+/* ===== logo grande no hero (estilo referência) ===== */
+.brand{display:flex;flex-direction:column;align-items:center;text-align:center;padding:6px 0 2px}
+.brand .blogo{width:118px;height:118px;object-fit:contain;filter:drop-shadow(0 8px 22px rgba(0,0,0,.35))}
+.brand .bk{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--golds);font-weight:800;margin-top:8px}
+.brand .bt{font-family:var(--df);font-weight:900;font-size:25px;line-height:1.02;color:#fff}
+.brand .bt em{font-style:italic;font-weight:500;color:var(--golds)}
+
+/* ícone-botão instrumento no card */
+.sa.inst{color:var(--gold-dim)}
+.sa .badge-n{background:var(--gb);color:#fff;border-radius:20px;font-size:9px;font-weight:800;padding:0 5px;margin-left:1px}
 </style>
 </head>
 <body>
@@ -348,9 +432,25 @@ details.ed summary::before{content:"✎";font-size:13px}
 
 <main class="wrap">
   <section class="pnl show" id="p-dash">
-    <div class="sh"><h2>Dashboard</h2><span class="hn">visão geral dos ensaios</span></div>
+    <div class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-in">
+        <div class="brand">
+          <img class="blogo" id="heroLogo" src="logo.jpg" alt="40 Anos CN2" onerror="this.onerror=null;this.src=document.getElementById('appLogo').src">
+          <div class="bk">Cidade Nova II · Músicos</div>
+          <div class="bt">Ensaios <em>40 Anos</em></div>
+        </div>
+        <div class="hero-lead">Rumo aos 40 Anos de Adoração e União</div>
+        <p class="hero-sub">Organize, ensaie e acompanhe o progresso do ministério de forma simples, bonita e eficiente.</p>
+        <div class="hero-chips">
+          <span class="chip"><b id="chipDays">–</b> dias para o evento</span>
+          <span class="chip"><b id="chipReady">0/25</b> prontas</span>
+        </div>
+      </div>
+    </div>
     <div class="stats" id="dStats"></div>
     <div class="crd"><h3>📊 Progresso por culto</h3><div class="cs">Músicas ensaiadas ao menos uma vez.</div><div id="dCulto"></div></div>
+    <div class="crd"><h3>📅 Próximos ensaios</h3><div class="cs">Os próximos encontros marcados.</div><div id="dNext"></div></div>
     <div class="crd"><h3>🏆 Ranking de ensaios</h3><div class="cs">Quantas vezes cada música foi ensaiada.</div><div id="dRank"></div></div>
     <div class="crd"><h3>🙋 Presença</h3><div class="cs">Participação de cada integrante nos ensaios.</div><div id="dPres" class="psum"></div></div>
     <div class="crd"><h3>⚠️ Ainda não ensaiadas</h3><div class="cs">Prioridade para o próximo encontro.</div><div id="dAlert"></div></div>
@@ -389,6 +489,21 @@ details.ed summary::before{content:"✎";font-size:13px}
 
 <div class="toast" id="toast"></div>
 
+<div class="modal" id="ytModal" onclick="if(event.target===this)closeYt()">
+  <div class="modal-box yt-box">
+    <div class="modal-head"><span id="ytTitle">Vídeo</span><button class="modal-x" onclick="closeYt()">✕</button></div>
+    <div class="yt-frame" id="ytFrame"></div>
+    <a class="yt-open" id="ytOpen" href="#" target="_blank">Abrir no YouTube ↗</a>
+  </div>
+</div>
+
+<div class="modal" id="partModal" onclick="if(event.target===this)closePart()">
+  <div class="modal-box">
+    <div class="modal-head"><span id="partTitle">Cifras por instrumento</span><button class="modal-x" onclick="closePart()">✕</button></div>
+    <div class="part-body" id="partBody"></div>
+  </div>
+</div>
+
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -409,6 +524,8 @@ let role="visitor", who="", songs=[], rehs=[], filt="all", lfilt="all", calView=
 const EVT=new Date("2026-07-09T00:00:00-04:00");
 const MUS_NAMES=["Rondiele","Naaliel","Tiago","Kaio","Sirley","Henrique","Débora","Maurício","Deivid"];
 const PRES_NAMES=["Rondiele","Naaliel","Tiago","Kaio","Sirley","Henrique","Débora","Maurício","Deivid","Daniel Souza","Cantores"];
+const INSTR=[["baixo","🎸","Baixo"],["guitarra","🎸","Guitarra"],["teclado","🎹","Teclado"],["bateria","🥁","Bateria"],["percussao","🪘","Percussão"],["metal","🎺","Metal/Sopro"],["violao","🎸","Violão"],["vocal","🎤","Vocal"]];
+function ytId(u){if(!u)return"";const m=String(u).match(/(?:v=|youtu\.be\/|shorts\/|embed\/)([A-Za-z0-9_-]{11})/);return m?m[1]:"";}
 const C={quinta:{d:"Quinta 09/07",s:"Dept. Juvenil",r:"Sem Rondiele",in:false},sexta:{d:"Sexta 10/07",s:"Senhores e Senhoras",r:"Rondiele · Baixo",in:true},sabado:{d:"Sábado 11/07",s:"Crianças",r:"Rondiele · Baixo + Metal",in:true},domingo:{d:"Domingo 12/07",s:"Daniel Souza · Todos",r:"Rondiele · Baixo + Metal",in:true}};
 const CO=["quinta","sexta","sabado","domingo"];
 const FARDA=[
@@ -428,7 +545,8 @@ const EQ=[
 
 function defSongs(){
   const r=[["Heróis da Fé","Rozeane Ribeiro (Coral)","quinta"],["Es Bem Vindo","Israel Salazar","quinta"],["Resistência","Kemilly Santos e Kailane Frauches","quinta"],["Medley Harpa (Pandeiro)","Harpa Cristã","sexta"],["A Igreja Tem que Marchar","Michele Giarola","sexta"],["Nossos Frutos","Vanilda Bordieri (Coral)","sexta"],["Medley: Um Só Deus + Povo Escolhido","Frutos do Espírito","sexta"],["Graça","Crianças","sabado"],["Cristo Ungido de Deus","Victor Valente","sabado"],["O Nosso General é Cristo","Infantil","sabado"],["40 Anos Cidade Nova 2","Composição CN2","sabado"],["Deus de Obras Completas","Kemilly Santos","sabado"],["Faremos Menção no Nome do Senhor","Daniel Souza","domingo"],["Medley Alegria","Daniel Souza","domingo"],["A Alegria","Daniel Souza","domingo"],["Jesus Riscou a Cédula","Daniel Souza","domingo"],["Todo Poder Pertence a Jesus","Daniel Souza","domingo"],["Jesus é o Rei da Glória","Daniel Souza","domingo"],["Te Louvarei","Daniel Souza","domingo"],["Toma o Teu Lugar","Daniel Souza","domingo"],["Declaramos a Glória do Senhor","Daniel Souza","domingo"],["Deus é meu Refúgio","Daniel Souza","domingo"],["Eu Quero Ser uma Benção","Daniel Souza","domingo"],["Corpo e Família","Daniel Souza","domingo"],["Perdão","Daniel Souza","domingo"]];
-  const o={};r.forEach((x,i)=>{const id="s"+(i+1);o[id]={id,title:x[0],artist:x[1],culto:x[2],order:i,youtube:"https://www.youtube.com/results?search_query="+encodeURIComponent(x[0]+" "+x[1]),cifraUrl:"https://www.google.com/search?q="+encodeURIComponent("cifra "+x[0]+" "+x[1]),cifraTxt:"",letraTxt:"",tom:"",notes:""};});
+  const VID={"A Igreja Tem que Marchar":"https://www.youtube.com/watch?v=NoSfBKC7H9U","Faremos Menção no Nome do Senhor":"https://www.youtube.com/watch?v=ufSUZuOn7pw","Jesus é o Rei da Glória":"https://www.youtube.com/watch?v=Wi6DbYfWJUk","Toma o Teu Lugar":"https://www.youtube.com/watch?v=IhATFFYJbC8","Corpo e Família":"https://www.youtube.com/watch?v=luTCEorzsy4","Eu Quero Ser uma Benção":"https://www.youtube.com/watch?v=OfnECKjnZPw"};
+  const o={};r.forEach((x,i)=>{const id="s"+(i+1);o[id]={id,title:x[0],artist:x[1],culto:x[2],order:i,videoUrl:(VID[x[0]]||""),youtube:"https://www.youtube.com/results?search_query="+encodeURIComponent(x[0]+" "+x[1]),cifraUrl:"https://www.google.com/search?q="+encodeURIComponent("cifra "+x[0]+" "+x[1]),cifraTxt:"",letraTxt:"",tom:"",notes:""};});
   return o;
 }
 function defRehs(){
@@ -464,7 +582,23 @@ function enterVisitor(){role="visitor";who="";startApp();}
 function logout(){auth.signOut().catch(()=>{});location.reload();}
 function authMsg(e){const c=(e&&e.code)||"";if(c.includes("wrong-password")||c.includes("invalid-credential"))return"Senha incorreta";if(c.includes("user-not-found"))return"Conta ainda não criada — fale com o admin";if(c.includes("network"))return"Sem conexão";if(c.includes("too-many"))return"Muitas tentativas, aguarde";return"Erro ao entrar";}
 async function ensureSeed(){
-  try{const s=await db.ref(ROOT+"/songs").once("value");if(!s.exists()){await db.ref(ROOT).update({songs:defSongs(),rehs:defRehs(),meta:{eventDate:"2026-07-09",created:Date.now()}});toast("Dados iniciais carregados ✓");}}catch(e){}
+  try{
+    const s=await db.ref(ROOT+"/songs").once("value");
+    if(!s.exists()){
+      await db.ref(ROOT).update({songs:defSongs(),rehs:defRehs(),meta:{eventDate:"2026-07-09",created:Date.now()}});
+      toast("Dados iniciais carregados ✓");
+      return;
+    }
+    // migração: preenche videoUrl oficial nas músicas que ainda não têm, sem apagar nada existente
+    const cur=s.val(),def=defSongs(),defByTitle={};Object.values(def).forEach(d=>{defByTitle[d.title]=d;});
+    const up={};let n=0;
+    Object.values(cur).forEach(song=>{
+      if(!song||!song.title)return;
+      const d=defByTitle[song.title];
+      if(d&&d.videoUrl&&!(song.videoUrl&&String(song.videoUrl).trim())){up[`${ROOT}/songs/${song.id}/videoUrl`]=d.videoUrl;n++;}
+    });
+    if(n){await db.ref().update(up);toast(n+" vídeos adicionados ✓");}
+  }catch(e){}
 }
 
 function startApp(){
@@ -474,6 +608,7 @@ function startApp(){
   if(role==="admin"){b.textContent="ADMIN · "+who;b.className="badge b-adm";}
   else if(role==="editor"){b.textContent=who;b.className="badge b-mus";}
   else{b.textContent="VISITANTE";b.className="badge b-vis";}
+  document.querySelector("header.top").classList.add("compact");
   listen();
 }
 function listen(){
@@ -492,9 +627,14 @@ function renderAll(){renderDash();renderCal();renderSongs();renderLetras();rende
 
 function renderDash(){
   const tot=songs.length,ens=songs.filter(s=>cnt(s.id)>0).length,pr=songs.filter(s=>cnt(s.id)>=3).length,done=rehs.filter(r=>mlen(r.marked)>0).length;
-  document.getElementById("dStats").innerHTML=[["",tot,"Músicas"],["g",ens,"Ensaiadas"],["a",pr,"Prontas 3x+"],["r",done+"/"+rehs.length,"Ensaios"]].map(s=>`<div class="st ${s[0]}"><div class="n">${s[1]}</div><div class="l">${s[2]}</div></div>`).join("");
+  const days=Math.ceil((EVT-new Date())/864e5),daysTxt=days>0?days:days===0?"Hoje":"🎉";
+  document.getElementById("dStats").innerHTML=[["",tot,"músicas"],["g",ens,"ensaiadas"],["a",pr,"prontas"],["",done+"/"+rehs.length,"ensaios"],["r",daysTxt,"dias p/ evento"]].map(s=>`<div class="st ${s[0]}"><div class="n">${s[1]}</div><div class="l">${s[2]}</div></div>`).join("");
   const pct=tot?Math.round(pr/tot*100):0;document.getElementById("ringC").style.strokeDashoffset=125.6-125.6*pct/100;document.getElementById("ringP").textContent=pct+"%";document.getElementById("ringV").innerHTML=pr+"/"+tot+" prontas";
+  document.getElementById("chipDays").textContent=daysTxt;document.getElementById("chipReady").textContent=pr+"/"+tot;
   document.getElementById("dCulto").innerHTML=CO.map(c=>{const l=songs.filter(s=>s.culto===c),e=l.filter(s=>cnt(s.id)>0).length,p=l.length?Math.round(e/l.length*100):0;return `<div class="pb"><div class="pl"><span class="pn">${C[c].d} <small>· ${C[c].s}</small></span><span class="pv">${e}/${l.length} · ${p}%</span></div><div class="bar"><span style="width:${p}%"></span></div></div>`;}).join("");
+  const today=new Date();today.setHours(0,0,0,0);
+  const up=rehs.filter(r=>new Date(r.date+"T23:59:00-04:00")>=today).slice(0,3);
+  document.getElementById("dNext").innerHTML=up.length?up.map(r=>{const dt=new Date(r.date+"T12:00:00-04:00"),d=String(dt.getDate()).padStart(2,"0"),M=["jan","fev","mar","abr","mai","jun","jul"][dt.getMonth()],nm=mlen(r.marked);return `<div class="nx" onclick="goReh('${r.id}')"><div class="nx-d"><b>${d}</b>${M}</div><div class="nx-m"><div class="nx-t">${esc(r.label)}</div><div class="nx-s">${r.dow} · ${r.time}</div></div>${r.gen?'<span class="pill pill-a">Geral</span>':nm?`<span class="pill pill-g">${nm} ✓</span>`:'<span class="pill pill-b">A marcar</span>'}</div>`;}).join(""):`<div class="good"><span class="e">🎉</span>Todos os ensaios já aconteceram!</div>`;
   const rk=[...songs].map(s=>({s,c:cnt(s.id)})).sort((a,b)=>b.c-a.c),mx=Math.max(1,...rk.map(r=>r.c));
   document.getElementById("dRank").innerHTML=rk.map(({s,c})=>{const[sc]=sts(c),col=sc==="g"?"var(--gb)":sc==="a"?"var(--amber)":"var(--red)";return `<div class="rk"><div class="rn">${esc(s.title)}</div><div class="rb"><span style="width:${c?Math.max(7,c/mx*100):3}%;background:${col}"></span></div><div class="rv">${c}×</div></div>`;}).join("");
   const pres={};rehs.forEach(r=>{Object.keys(r.present||{}).forEach(n=>{pres[n]=(pres[n]||0)+1;});});
@@ -503,10 +643,12 @@ function renderDash(){
   const nv=songs.filter(s=>cnt(s.id)===0);
   document.getElementById("dAlert").innerHTML=nv.length?nv.map(s=>`<div class="al"><span class="ad"></span><span class="an">${esc(s.title)}</span><span class="ac">${C[s.culto].d}</span></div>`).join(""):`<div class="good"><span class="e">🎉</span>Todas as músicas já foram ensaiadas!</div>`;
 }
+function goReh(id){document.querySelector('.tab[data-t="cal"]').click();setTimeout(()=>{const ev=document.querySelector(`.ev[data-r="${id}"]`);if(ev){if(!ev.classList.contains("open"))tEv(id);ev.scrollIntoView({behavior:"smooth",block:"center"});}},80);}
 
 function renderCal(){renderCalList();renderCalGrid();}
 function renderCalList(){
   const today=new Date();today.setHours(0,0,0,0);
+  const openIds=[...document.querySelectorAll(".ev.open")].map(e=>e.dataset.r);
   document.getElementById("calList").innerHTML=rehs.map(r=>{
     const dt=new Date(r.date+"T12:00:00-04:00"),d=String(dt.getDate()).padStart(2,"0"),M=["JAN","FEV","MAR","ABR","MAI","JUN","JUL"][dt.getMonth()];
     const nm=mlen(r.marked),np=mlen(r.present);
@@ -517,11 +659,20 @@ function renderCalList(){
       <div class="ev-x"><span class="xn">🎵 ${nm}</span>${np?`<span class="xn">🙋 ${np}</span>`:""}<span class="chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg></span></div>
     </div><div class="ev-b" id="eb-${r.id}"><div class="ev-bi">${rehBody(r)}</div></div></div>`;
   }).join("");
+  openIds.forEach(id=>{const ev=document.querySelector(`.ev[data-r="${id}"]`),b=document.getElementById("eb-"+id);if(ev&&b){ev.classList.add("open");b.style.maxHeight="none";}});
 }
 function rehBody(r){
   let h="";
   if(canEdit()){
-    h+=`<div class="pres"><div class="pres-t">🙋 Presença neste ensaio</div><div class="pres-g">`;
+    // check-in pessoal: o músico marca a SUA presença neste dia
+    if(who&&who!=="Cantores"){
+      const meOn=r.present&&r.present[who];
+      h+=`<div class="pres-day"><div class="pres-day-l">Sua presença neste ensaio</div>
+        <div class="pres-self"><div class="pself-i">${meOn?`<span class="pself-tag">✓ Presença confirmada</span>`:`Olá, <b>${esc(who)}</b> — você vem neste ensaio?`}</div>
+        ${meOn?`<button class="pself-btn pself-out" onclick="selfPres('${r.id}',0)">Cancelar</button>`:`<button class="pself-btn pself-in" onclick="selfPres('${r.id}',1)">✓ Confirmar presença</button>`}</div></div>`;
+    }
+    // lista completa (todos) — útil para o líder/admin marcar quem veio
+    h+=`<div class="pres"><div class="pres-t">🙋 Quem está presente (todos)</div><div class="pres-g">`;
     h+=PRES_NAMES.map(n=>`<button class="pbtn ${r.present&&r.present[n]?'on':''}" onclick="tPres('${r.id}','${esc(n)}')">${esc(n)}</button>`).join("");
     h+=`</div></div>`;
     h+=`<div class="qbtns"><button class="qb" onclick="markAll('${r.id}',1)">Marcar todas</button><button class="qb" onclick="markAll('${r.id}',0)">Limpar músicas</button></div>`;
@@ -529,9 +680,10 @@ function rehBody(r){
   CO.forEach(c=>{const l=songs.filter(s=>s.culto===c);if(!l.length)return;h+=`<div class="grp">${C[c].d}</div>`+l.map(s=>{const on=r.marked&&r.marked[s.id];return `<label class="chk"><input type="checkbox" ${on?"checked":""} ${canEdit()?"":"disabled"} onchange="tSong('${r.id}','${s.id}',this.checked)"><span class="cn">${esc(s.title)}</span><span class="cc">${cnt(s.id)}×</span></label>`;}).join("");});
   return h;
 }
-function tEv(id){const ev=document.querySelector(`.ev[data-r="${id}"]`),b=document.getElementById("eb-"+id);const o=ev.classList.toggle("open");b.style.maxHeight=o?b.scrollHeight+"px":"0";}
+function tEv(id){const ev=document.querySelector(`.ev[data-r="${id}"]`),b=document.getElementById("eb-"+id);const o=ev.classList.toggle("open");if(o){b.style.maxHeight=b.scrollHeight+"px";setTimeout(()=>{if(ev.classList.contains("open"))b.style.maxHeight="none";},360);}else{b.style.maxHeight=b.scrollHeight+"px";requestAnimationFrame(()=>{b.style.maxHeight="0";});}}
 function tSong(rid,sid,ck){if(!canEdit())return;db.ref(`${ROOT}/rehs/${rid}/marked/${sid}`).set(ck?true:null).catch(()=>toast("Erro ao salvar","err"));}
 function tPres(rid,name){if(!canEdit())return;const r=rehs.find(x=>x.id===rid),on=r.present&&r.present[name];db.ref(`${ROOT}/rehs/${rid}/present/${name}`).set(on?null:true).then(()=>toast(on?name+" removido":name+" presente ✓")).catch(()=>toast("Erro ao salvar","err"));}
+function selfPres(rid,go){if(!canEdit()||!who)return;db.ref(`${ROOT}/rehs/${rid}/present/${who}`).set(go?true:null).then(()=>toast(go?"Presença confirmada ✓":"Presença cancelada")).catch(()=>toast("Erro ao salvar — verifique seu login","err"));}
 function markAll(rid,v){if(!canEdit())return;const o={};if(v)songs.forEach(s=>o[s.id]=true);db.ref(`${ROOT}/rehs/${rid}/marked`).set(v?o:null).then(()=>toast(v?"Todas marcadas ✓":"Músicas limpas")).catch(()=>toast("Erro ao salvar","err"));}
 function renderCalGrid(){
   const today=new Date();today.setHours(0,0,0,0);
@@ -566,26 +718,71 @@ function renderSongs(){
 }
 function songCard(s){
   const c=cnt(s.id),[sc,sl]=sts(c),ce=canEdit();
+  const np=s.parts?Object.values(s.parts).filter(x=>x&&x.trim()).length:0;
   return `<div class="song"><div class="s-top"><span class="sdot sd-${sc}"></span>
     <div class="s-info"><div class="nm">${esc(s.title)}</div><div class="ar">${esc(s.artist)}</div>
       <div class="s-tags"><span class="s-tag">${sl}</span>${s.tom?`<span class="s-tag">Tom: ${esc(s.tom)}</span>`:""}</div></div>
     <div class="s-cnt"><div class="v">${c}</div><div class="l">ensaios</div></div></div>
-    <div class="s-act"><a class="sa yt" href="${esc(s.youtube)}" target="_blank">▶ YouTube</a><a class="sa cf" href="${esc(s.cifraUrl)}" target="_blank">📄 Cifra online</a></div>
+    <div class="s-act"><button class="sa yt" onclick="openYt('${s.id}')">▶ Vídeo</button><button class="sa inst" onclick="openPart('${s.id}')">🎼 Por instrumento${np?`<span class="badge-n">${np}</span>`:""}</button><a class="sa cf" href="${esc(s.cifraUrl)}" target="_blank">📄 Cifra online</a></div>
     ${s.notes?`<div class="note">📌 ${esc(s.notes)}</div>`:""}
-    ${ce?`<details class="ed"><summary>Editar cifra, tom e notas</summary>
+    ${ce?`<details class="ed"><summary>Editar cifra, tom, vídeo e notas</summary>
       <input class="tinput" id="tom-${s.id}" value="${esc(s.tom)}" placeholder="Tom (ex: E, Gm, capotraste 2ª)">
       <input class="tinput" id="nt-${s.id}" value="${esc(s.notes)}" placeholder="Notas (ex: atenção na virada)">
-      <textarea class="ta" id="cf-${s.id}" placeholder="Cole a cifra aqui...">${esc(s.cifraTxt)}</textarea>
+      ${role==="admin"?`<input class="tinput" id="vid-${s.id}" value="${esc(s.videoUrl||"")}" placeholder="Link do vídeo YouTube (cole p/ abrir dentro do app)">`:""}
+      <textarea class="ta" id="cf-${s.id}" placeholder="Cifra geral da música...">${esc(s.cifraTxt)}</textarea>
       <div class="tsave"><button id="cfb-${s.id}" onclick="saveCifra('${s.id}')">Salvar</button><span class="ti">qualquer músico pode editar</span></div>
       ${role==="admin"?`<button class="del-song" onclick="delSong('${s.id}','${esc(s.title).replace(/'/g,"")}')">🗑 Excluir música</button>`:""}</details>`
-    :(s.cifraTxt?`<button class="read-full" onclick="this.nextElementSibling.classList.toggle('hidden')">📄 Ver/ocultar cifra</button><pre class="read-pre hidden">${esc(s.cifraTxt)}</pre>`:"")}
+    :(s.cifraTxt?`<button class="read-full" onclick="this.nextElementSibling.classList.toggle('hidden')">📄 Ver/ocultar cifra geral</button><pre class="read-pre hidden">${esc(s.cifraTxt)}</pre>`:"")}
   </div>`;
 }
 function setF(f){filt=f;renderSongs();}
 function saveCifra(id){
   if(!canEdit())return;const b=document.getElementById("cfb-"+id);b.disabled=true;
   const u={cifraTxt:document.getElementById("cf-"+id).value,tom:document.getElementById("tom-"+id).value,notes:document.getElementById("nt-"+id).value};
+  const vidEl=document.getElementById("vid-"+id);if(vidEl)u.videoUrl=vidEl.value.trim();
   db.ref(`${ROOT}/songs/${id}`).update(u).then(()=>toast("Cifra salva ✓")).catch(()=>toast("Erro ao salvar — verifique seu login","err")).finally(()=>{b.disabled=false;});
+}
+
+/* ===== YouTube embutido (mini janela) ===== */
+function openYt(id){
+  const s=songs.find(x=>x.id===id);if(!s)return;
+  const vid=ytId(s.videoUrl)||ytId(s.youtube);
+  document.getElementById("ytTitle").textContent=s.title;
+  const open=document.getElementById("ytOpen");
+  if(vid){
+    document.getElementById("ytFrame").innerHTML=`<iframe src="https://www.youtube.com/embed/${vid}?autoplay=1&rel=0" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>`;
+    open.href="https://www.youtube.com/watch?v="+vid;
+  }else{
+    // sem link direto salvo: cai na busca do YouTube (abre fora, pois busca não embeda)
+    document.getElementById("ytFrame").innerHTML=`<div style="position:absolute;inset:0;display:grid;place-items:center;color:#fff;text-align:center;padding:24px;font-size:13px;line-height:1.5">Ainda não há um link de vídeo salvo para esta música.<br>Toque abaixo para procurar no YouTube.</div>`;
+    open.href=s.youtube;
+  }
+  document.getElementById("ytModal").classList.add("show");
+}
+function closeYt(){document.getElementById("ytFrame").innerHTML="";document.getElementById("ytModal").classList.remove("show");}
+
+/* ===== Cifras/partituras por instrumento ===== */
+function openPart(id){
+  const s=songs.find(x=>x.id===id);if(!s)return;
+  document.getElementById("partTitle").textContent="🎼 "+s.title;
+  const parts=s.parts||{},ce=canEdit();
+  let h=`<div class="part-intro">Cada instrumento tem sua cifra ou partitura. Toque para abrir.${ce?" Qualquer músico pode editar.":""}</div>`;
+  h+=INSTR.map(([k,ic,nm])=>{
+    const has=parts[k]&&parts[k].trim();
+    return `<div class="part-row"><div class="part-h" onclick="togglePart('${k}')"><span class="pic">${ic}</span><span class="pnm">${nm}</span><span class="pst ${has?'pst-has':'pst-no'}">${has?'tem cifra':'vazio'}</span></div>
+      <div class="part-c hidden" id="pc-${k}">
+      ${ce?`<textarea class="ta" id="pt-${k}" placeholder="Cole aqui a cifra/partitura de ${nm}...">${esc(parts[k]||"")}</textarea><div class="tsave"><button id="ptb-${k}" onclick="savePart('${s.id}','${k}')">Salvar ${nm}</button></div>`
+      :(has?`<pre class="read-pre">${esc(parts[k])}</pre>`:`<div class="empty-txt">Sem cifra para ${nm} ainda.</div>`)}
+      </div></div>`;
+  }).join("");
+  document.getElementById("partBody").innerHTML=h;
+  document.getElementById("partModal").classList.add("show");
+}
+function togglePart(k){document.getElementById("pc-"+k).classList.toggle("hidden");}
+function closePart(){document.getElementById("partModal").classList.remove("show");}
+function savePart(id,k){
+  if(!canEdit())return;const b=document.getElementById("ptb-"+k);b.disabled=true;
+  db.ref(`${ROOT}/songs/${id}/parts/${k}`).set(document.getElementById("pt-"+k).value||null).then(()=>{toast("Cifra de "+k+" salva ✓");const ps=document.querySelector(`#pc-${k}`).previousElementSibling.querySelector(".pst");if(ps){const has=document.getElementById("pt-"+k).value.trim();ps.className="pst "+(has?"pst-has":"pst-no");ps.textContent=has?"tem cifra":"vazio";}}).catch(()=>toast("Erro ao salvar — verifique seu login","err")).finally(()=>{b.disabled=false;});
 }
 function addSong(){
   if(role!=="admin")return;
@@ -595,7 +792,7 @@ function addSong(){
   const b=document.getElementById("ns-go");b.disabled=true;
   const id="s"+Date.now().toString(36);
   const maxO=songs.reduce((m,s)=>Math.max(m,s.order||0),0);
-  const song={id,title:t,artist:ar,culto:cu,order:maxO+1,youtube:"https://www.youtube.com/results?search_query="+encodeURIComponent(t+" "+ar),cifraUrl:"https://www.google.com/search?q="+encodeURIComponent("cifra "+t+" "+ar),cifraTxt:"",letraTxt:"",tom:tom,notes:""};
+  const song={id,title:t,artist:ar,culto:cu,order:maxO+1,youtube:"https://www.youtube.com/results?search_query="+encodeURIComponent(t+" "+ar),cifraUrl:"https://www.google.com/search?q="+encodeURIComponent("cifra "+t+" "+ar),videoUrl:"",cifraTxt:"",letraTxt:"",tom:tom,notes:"",parts:{}};
   db.ref(`${ROOT}/songs/${id}`).set(song).then(()=>{toast("Música adicionada ✓");["ns-title","ns-artist","ns-tom"].forEach(x=>document.getElementById(x).value="");document.getElementById("addBox").open=false;}).catch(()=>toast("Erro ao adicionar — verifique seu login","err")).finally(()=>{b.disabled=false;});
 }
 function delSong(id,title){
@@ -609,7 +806,7 @@ function delSong(id,title){
 function renderLetras(){
   document.getElementById("letraF").innerHTML=[["all","Todas",songs.length]].concat(CO.map(c=>[c,C[c].d,songs.filter(s=>s.culto===c).length])).map(([k,l,n])=>`<button class="fb ${k===lfilt?'active':''}" onclick="setLF('${k}')">${l}<span class="fn">${n}</span></button>`).join("");
   const cs=lfilt==="all"?CO:[lfilt],ce=canEdit();
-  document.getElementById("letraL").innerHTML=cs.map(c=>{const l=songs.filter(s=>s.culto===c);if(!l.length)return"";return `<div class="cblk"><div class="chd"><div><div class="cd-d">${C[c].d}</div><div class="cd-s">${C[c].s}</div></div></div>${l.map(s=>`<div class="song"><div class="s-top"><div class="s-info"><div class="nm">🎤 ${esc(s.title)}</div><div class="ar">${esc(s.artist)}</div></div><a class="sa yt" href="${esc(s.youtube)}" target="_blank">▶</a></div>
+  document.getElementById("letraL").innerHTML=cs.map(c=>{const l=songs.filter(s=>s.culto===c);if(!l.length)return"";return `<div class="cblk"><div class="chd"><div><div class="cd-d">${C[c].d}</div><div class="cd-s">${C[c].s}</div></div></div>${l.map(s=>`<div class="song"><div class="s-top"><div class="s-info"><div class="nm">🎤 ${esc(s.title)}</div><div class="ar">${esc(s.artist)}</div></div><button class="sa yt" onclick="openYt('${s.id}')">▶</button></div>
     ${ce?`<textarea class="ta lyr" id="ly-${s.id}" placeholder="Cole a letra aqui...">${esc(s.letraTxt)}</textarea><div class="tsave"><button id="lyb-${s.id}" onclick="saveLetra('${s.id}')">Salvar letra</button><span class="ti">músicos e cantores podem editar</span></div>`
     :(s.letraTxt?`<button class="read-full" onclick="this.nextElementSibling.classList.toggle('hidden')">🎤 Ver/ocultar letra</button><pre class="read-pre lyr hidden">${esc(s.letraTxt)}</pre>`:`<div class="empty-txt">Letra ainda não adicionada.</div>`)}
     </div>`).join("")}</div>`;}).join("");
@@ -630,7 +827,7 @@ function renderEquipe(){
 
 function cd(){const d=Math.ceil((EVT-new Date())/864e5);document.getElementById("cdN").textContent=d>0?d:d===0?"Hoje!":"🎉";}
 
-document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".pnl").forEach(p=>p.classList.remove("show"));document.getElementById("p-"+b.dataset.t).classList.add("show");});
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".pnl").forEach(p=>p.classList.remove("show"));document.getElementById("p-"+b.dataset.t).classList.add("show");document.querySelector("header.top").classList.toggle("compact",b.dataset.t==="dash");window.scrollTo({top:0,behavior:"smooth"});});
 document.querySelectorAll(".cv-btn").forEach(b=>b.onclick=()=>{document.querySelectorAll(".cv-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");calView=b.dataset.cv;document.getElementById("calList").classList.toggle("hidden",calView!=="list");document.getElementById("calGrid").classList.toggle("hidden",calView!=="grid");});
 </script>
 </body>
