@@ -341,7 +341,8 @@ details.ed summary::before{content:"✎";font-size:13px}
 .part-row{margin-bottom:11px;border:1px solid var(--line);border-radius:13px;overflow:hidden}
 .part-h{display:flex;align-items:center;gap:11px;padding:12px 14px;cursor:pointer;background:var(--paper)}
 .part-h .pic{width:34px;height:34px;flex:none;display:grid;place-items:center;background:var(--g-light);border-radius:9px;font-size:17px}
-.part-h .pnm{flex:1;font-weight:700;font-size:14px}
+.part-h .pnm{flex:1;font-weight:700;font-size:14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.part-who{font-weight:700;font-size:11.5px;color:var(--gb);background:var(--g-light);padding:2px 9px;border-radius:20px;align-self:flex-start;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .part-h .pst{font-size:10.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:20px}
 .pst-has{background:rgba(47,138,100,.15);color:var(--gd)}.pst-no{background:rgba(22,39,30,.06);color:var(--ink3)}
 .part-c{padding:0 14px 14px}
@@ -1843,9 +1844,168 @@ body.layout-v2 {
     linear-gradient(180deg, #fbf8ef 0%, #f5f0e5 100%) !important;
 }
 /* ==================================================
-   PATCH 03 — POLIMENTO DO LAYOUT ATUAL
-   Cole no final do CSS
+   PATCH MOBILE — TELEPROMPTER + YT MINI + NEGRITO
 ================================================== */
+
+/* ── Barra de formatação (negrito) — toolbar colada ao textarea ── */
+.fmt-wrap{margin-top:9px;border:1.5px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.fmt-wrap:focus-within{border-color:var(--gb);box-shadow:0 0 0 3px rgba(47,138,100,.12)}
+.fmt-bar{display:flex;gap:6px;align-items:center;padding:7px 9px;background:var(--paper2);border-bottom:1px solid var(--line)}
+.fmt-btn{border:1.5px solid var(--line);background:#fff;border-radius:8px;padding:5px 12px;font-size:13px;font-weight:700;color:var(--ink2);cursor:pointer;font-family:var(--bf);transition:.15s;line-height:1}
+.fmt-btn:hover{border-color:var(--gb);background:var(--g-light);color:var(--gd)}
+.fmt-btn.bold-b{font-weight:900;font-size:14px}
+.fmt-hint{font-size:10.5px;color:var(--ink3);font-weight:500}
+.fmt-wrap .ta{margin-top:0!important;border:none!important;border-radius:0!important;box-shadow:none!important}
+.fmt-wrap .ta:focus{box-shadow:none!important}
+
+/* ── Teleprompter ── */
+.tp-bar{display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--gd);border-radius:12px;margin-bottom:10px;flex-wrap:wrap}
+.tp-bar .tp-label{color:var(--golds);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;flex:none}
+.tp-play{flex:none;border:none;width:36px;height:36px;border-radius:50%;background:var(--golds);color:var(--gd);font-size:16px;cursor:pointer;display:grid;place-items:center;transition:.15s;font-weight:900}
+.tp-play:hover{background:#e7c876}
+.tp-play.running{background:#4ae07a}
+.tp-speed-wrap{display:flex;align-items:center;gap:7px;flex:1;min-width:160px}
+.tp-speed-wrap label{color:rgba(244,239,226,.7);font-size:11px;font-weight:700;white-space:nowrap}
+.tp-speed{-webkit-appearance:none;appearance:none;height:5px;border-radius:20px;background:rgba(255,255,255,.2);outline:none;flex:1;cursor:pointer}
+.tp-speed::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--golds);cursor:pointer}
+.tp-speed::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--golds);border:none;cursor:pointer}
+.tp-reset{flex:none;border:none;background:rgba(255,255,255,.15);color:var(--paper);border-radius:8px;padding:6px 11px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--bf)}
+.tp-reset:hover{background:rgba(255,255,255,.25)}
+
+/* Scroll suave do container do teleprompter */
+.tp-scroll-container{overflow-y:auto;max-height:55vh;border-radius:11px;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
+@media(max-width:600px){.tp-scroll-container{max-height:58vh}}
+.tp-scroll-container.tp-active{outline:2px solid var(--gb);outline-offset:2px}
+
+/* ── Modal YouTube mini (apenas áudio + sync) ── */
+.yt-mini-wrap{display:flex;flex-direction:column;gap:0}
+.yt-audio-bar{display:flex;align-items:center;gap:10px;padding:12px 15px;background:var(--gd);border-bottom:1px solid rgba(255,255,255,.1)}
+.yt-audio-title{flex:1;color:var(--paper);font-weight:700;font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.yt-frame-hidden{display:none}
+.yt-frame-visible{position:relative;width:100%;aspect-ratio:16/9;background:#000}
+.yt-frame-visible iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt-toggle-video{flex:none;border:none;background:rgba(255,255,255,.15);color:var(--paper);border-radius:8px;padding:7px 12px;font-size:11.5px;font-weight:700;cursor:pointer;font-family:var(--bf);white-space:nowrap;transition:.15s}
+.yt-toggle-video:hover{background:rgba(255,255,255,.25)}
+.yt-toggle-video.vid-visible{background:rgba(47,138,100,.5)}
+/* Lyrics pane below audio bar */
+.yt-content-pane{padding:14px 16px;overflow-y:auto;max-height:52vh;-webkit-overflow-scrolling:touch}
+@media(max-width:600px){.yt-content-pane{max-height:48vh}}
+.yt-cifra-inline .read-pre{margin-top:0;border-radius:0;border:none;background:transparent;padding:0;font-size:13.5px;line-height:1.7}
+.yt-no-content{text-align:center;padding:22px;color:var(--ink3);font-size:13px;font-style:italic}
+
+/* ── read-pre com negrito renderizado ── */
+.read-pre b,.read-pre strong{font-weight:900;color:var(--gd)}
+
+/* ==================================================
+   CORREÇÃO FINAL — MENU ALINHADO AO CONTEÚDO
+   (sobrescreve os patches anteriores que deixavam
+    o menu como uma pílula flutuante de largura
+    diferente do resto da página)
+================================================== */
+.layout-v2 nav.tabs,
+.layout-v2 .tabs{
+  width:min(940px,calc(100% - 32px))!important;
+  max-width:940px!important;
+  margin:14px auto 18px!important;
+  padding:7px!important;
+  border-radius:18px!important;
+  background:var(--card)!important;
+  border:1px solid var(--line)!important;
+  box-shadow:var(--sh)!important;
+  position:sticky!important;
+  top:10px!important;
+  z-index:40!important;
+  overflow:visible!important;
+}
+.layout-v2 nav.tabs .tabs-in,
+.tabs-in{
+  width:100%!important;
+  max-width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  background:transparent!important;
+  backdrop-filter:none!important;
+  border:none!important;
+  border-radius:0!important;
+  display:flex!important;
+  gap:5px!important;
+  overflow-x:auto!important;
+  scrollbar-width:none!important;
+}
+.layout-v2 nav.tabs .tabs-in::-webkit-scrollbar,
+.tabs-in::-webkit-scrollbar{display:none!important}
+
+/* botões do menu: voltam ao estilo de aba (não pílula verde herdada) */
+.layout-v2 nav.tabs .tab,
+.tabs .tab{
+  flex:0 0 auto!important;
+  background:transparent!important;
+  color:var(--ink2)!important;
+  border:none!important;
+  border-radius:11px!important;
+  padding:9px 14px!important;
+  font-size:13px!important;
+  font-weight:700!important;
+  box-shadow:none!important;
+  white-space:nowrap!important;
+  min-height:auto!important;
+}
+.layout-v2 nav.tabs .tab:hover,
+.tabs .tab:hover{
+  background:rgba(22,39,30,.06)!important;
+  color:var(--ink)!important;
+  transform:none!important;
+}
+.layout-v2 nav.tabs .tab.active,
+.tabs .tab.active{
+  background:var(--gd)!important;
+  color:var(--paper)!important;
+  box-shadow:var(--sh)!important;
+}
+
+/* main na mesma largura do menu, para tudo ficar alinhado */
+.layout-v2 main.wrap,
+main.wrap{
+  width:min(940px,calc(100% - 32px))!important;
+  max-width:940px!important;
+  margin:0 auto!important;
+  padding:0!important;
+  padding-bottom:50px!important;
+}
+/* o respiro lateral fica nas seções internas, não no main,
+   para o hero verde poder ocupar a largura cheia da coluna */
+.layout-v2 main.wrap>.pnl,
+main.wrap>.pnl{padding-left:0!important;padding-right:0!important}
+
+/* os painéis (.pnl) são CONTÊINERES, não cartões:
+   removemos o fundo branco/borda/sombra/arredondamento que os
+   patches antigos aplicavam a todo <section>, e que estava
+   embrulhando o hero e desalinhando as larguras */
+.layout-v2 section.pnl,
+section.pnl{
+  max-width:100%!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  background:transparent!important;
+  border:none!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+
+@media(max-width:600px){
+  .layout-v2 nav.tabs,
+  .layout-v2 .tabs{
+    width:calc(100% - 20px)!important;
+    margin:10px auto 14px!important;
+    border-radius:16px!important;
+  }
+  .layout-v2 main.wrap,
+  main.wrap{
+    width:calc(100% - 20px)!important;
+    padding:0!important;
+  }
+}
 
 </style>
 
@@ -1980,9 +2140,21 @@ body.layout-v2 {
 <div class="toast" id="toast"></div>
 
 <div class="modal" id="ytModal" onclick="if(event.target===this)closeYt()">
-  <div class="modal-box yt-box">
+  <div class="modal-box yt-box" style="max-width:620px">
     <div class="modal-head"><span id="ytTitle">Vídeo</span><button class="modal-x" onclick="closeYt()">✕</button></div>
-    <div class="yt-frame" id="ytFrame"></div>
+    <div class="yt-mini-wrap">
+      <!-- Barra de áudio sempre visível -->
+      <div class="yt-audio-bar">
+        <span class="yt-audio-title" id="ytAudioTitle">🎵 Reproduzindo…</span>
+        <button class="yt-toggle-video" id="ytToggleVideo" onclick="toggleYtVideo()">📺 Ver vídeo</button>
+      </div>
+      <!-- Frame do vídeo (escondido por padrão) -->
+      <div class="yt-frame-hidden" id="ytFrame"></div>
+      <!-- Painel de conteúdo: cifra ou letra -->
+      <div class="yt-content-pane" id="ytContentPane">
+        <div class="yt-no-content" id="ytNoContent">Toque em uma música para ver a cifra ou letra aqui enquanto ouve.</div>
+      </div>
+    </div>
     <a class="yt-open" id="ytOpen" href="#" target="_blank">Abrir no YouTube ↗</a>
   </div>
 </div>
@@ -2032,6 +2204,15 @@ const EQ=[
   {c:"Sábado 11/07",s:"Crianças",e:[["Teclado","Naaliel"],["Bateria","Tiago"],["Guitarra","Kaio"],["Baixo","Rondiele e Sirley"],["Percussão","Henrique"],["Metal","Rondiele e Sirley"]]},
   {c:"Domingo 12/07",s:"Daniel Souza",e:[["Todos","Toda a equipe"]]}
 ];
+
+/* Escalação por instrumento em cada dia (culto -> chave do instrumento -> quem toca).
+   As chaves seguem INSTR: baixo, guitarra, teclado, bateria, percussao, metal, violao, vocal */
+const EQ_INSTR={
+  quinta:{teclado:"Naaliel",bateria:"Tiago",guitarra:"Kaio",baixo:"Sirley",percussao:"Henrique"},
+  sexta:{teclado:"Débora",bateria:"Tiago",guitarra:"Maurício",baixo:"Rondiele",percussao:"Deivid",metal:"Sirley"},
+  sabado:{teclado:"Naaliel",bateria:"Tiago",guitarra:"Kaio",baixo:"Rondiele e Sirley",percussao:"Henrique",metal:"Rondiele e Sirley"},
+  domingo:{baixo:"Toda a equipe",guitarra:"Toda a equipe",teclado:"Toda a equipe",bateria:"Toda a equipe",percussao:"Toda a equipe",metal:"Toda a equipe",violao:"Toda a equipe",vocal:"Toda a equipe"}
+};
 
 function defSongs(){
   const r=[["Heróis da Fé","Rozeane Ribeiro (Coral)","quinta"],["Es Bem Vindo","Israel Salazar","quinta"],["Resistência","Kemilly Santos e Kailane Frauches","quinta"],["Medley Harpa (Pandeiro)","Harpa Cristã","sexta"],["A Igreja Tem que Marchar","Michele Giarola","sexta"],["Nossos Frutos","Vanilda Bordieri (Coral)","sexta"],["Medley: Um Só Deus + Povo Escolhido","Frutos do Espírito","sexta"],["Graça","Crianças","sabado"],["Cristo Ungido de Deus","Victor Valente","sabado"],["O Nosso General é Cristo","Infantil","sabado"],["40 Anos Cidade Nova 2","Composição CN2","sabado"],["Deus de Obras Completas","Kemilly Santos","sabado"],["Faremos Menção no Nome do Senhor","Daniel Souza","domingo"],["Medley Alegria","Daniel Souza","domingo"],["A Alegria","Daniel Souza","domingo"],["Jesus Riscou a Cédula","Daniel Souza","domingo"],["Todo Poder Pertence a Jesus","Daniel Souza","domingo"],["Jesus é o Rei da Glória","Daniel Souza","domingo"],["Te Louvarei","Daniel Souza","domingo"],["Toma o Teu Lugar","Daniel Souza","domingo"],["Declaramos a Glória do Senhor","Daniel Souza","domingo"],["Deus é meu Refúgio","Daniel Souza","domingo"],["Eu Quero Ser uma Benção","Daniel Souza","domingo"],["Corpo e Família","Daniel Souza","domingo"],["Perdão","Daniel Souza","domingo"]];
@@ -2112,6 +2293,64 @@ const cnt=id=>rehs.reduce((n,r)=>n+(r.marked&&r.marked[id]?1:0),0);
 const sts=c=>c<=0?["r","Não ensaiada"]:c<3?["a","Em andamento"]:["g","Pronta"];
 const canEdit=()=>role==="admin"||role==="editor";
 let tT;function toast(m,k){const t=document.getElementById("toast");t.textContent=m;t.className="toast show"+(k==="err"?" err":"");clearTimeout(tT);tT=setTimeout(()=>t.className="toast"+(k==="err"?" err":""),2300);}
+
+/* ===== Negrito: renderiza **texto** como <b>texto</b> ===== */
+function renderBold(s){return s.replace(/\*\*([^*\n]+)\*\*/g,'<b>$1</b>');}
+
+/* ===== Barra de formatação para textarea ===== */
+function insertBold(taId){
+  const ta=document.getElementById(taId);if(!ta)return;
+  const s=ta.selectionStart,e=ta.selectionEnd;
+  const sel=ta.value.substring(s,e)||"texto";
+  const before=ta.value.substring(0,s),after=ta.value.substring(e);
+  ta.value=before+"**"+sel+"**"+after;
+  ta.selectionStart=s+2;ta.selectionEnd=s+2+sel.length;
+  ta.focus();
+}
+function fmtBar(taId){
+  return `<div class="fmt-bar"><button class="fmt-btn bold-b" onclick="insertBold('${taId}')" title="Negrito"><b>B</b> Negrito</button><span class="fmt-hint">selecione um trecho e toque em Negrito</span></div>`;
+}
+/* Monta toolbar + textarea integrados num único bloco (visual de editor) */
+function editArea(taId,value,placeholder,extraClass){
+  return `<div class="fmt-wrap">${fmtBar(taId)}<textarea class="ta ${extraClass||""}" id="${taId}" placeholder="${placeholder}">${esc(value||"")}</textarea></div>`;
+}
+
+/* ===== Teleprompter ===== */
+let _tpTimer=null,_tpRunning=false;
+function tpStart(containerId,speedId){
+  const el=document.getElementById(containerId);if(!el)return;
+  _tpRunning=true;
+  const btn=el.closest('.song,section')?.querySelector('.tp-play')||document.querySelector('.tp-play[data-container="'+containerId+'"]');
+  if(btn){btn.classList.add('running');btn.textContent='⏸';}
+  el.classList.add('tp-active');
+  function tick(){
+    if(!_tpRunning)return;
+    const sp=document.getElementById(speedId);
+    const spd=sp?parseFloat(sp.value):1;
+    const px=spd*0.6; // pixels por tick
+    el.scrollTop+=px;
+    // Para no fim
+    if(el.scrollTop+el.clientHeight>=el.scrollHeight-4){tpStop(containerId,speedId);return;}
+    _tpTimer=requestAnimationFrame(tick);
+  }
+  _tpTimer=requestAnimationFrame(tick);
+}
+function tpStop(containerId,speedId){
+  _tpRunning=false;
+  if(_tpTimer){cancelAnimationFrame(_tpTimer);_tpTimer=null;}
+  const el=document.getElementById(containerId);
+  if(el)el.classList.remove('tp-active');
+  const btn=document.querySelector('.tp-play[data-container="'+containerId+'"]');
+  if(btn){btn.classList.remove('running');btn.textContent='▶';}
+}
+function tpToggle(containerId,speedId){
+  if(_tpRunning){tpStop(containerId,speedId);}else{tpStart(containerId,speedId);}
+}
+function tpReset(containerId,speedId){
+  tpStop(containerId,speedId);
+  const el=document.getElementById(containerId);
+  if(el)el.scrollTop=0;
+}
 
 function renderAll(){renderDash();renderCal();renderSongs();renderLetras();renderFarda();renderEquipe();cd();}
 
@@ -2204,11 +2443,19 @@ function renderSongs(){
       <div class="tsave"><button id="ns-go" onclick="addSong()">Adicionar ao repertório</button><span class="ti">só o admin vê isto</span></div>
     </details>`;
   }
-  document.getElementById("songL").innerHTML=addBox+cs.map(c=>{const l=songs.filter(s=>s.culto===c);if(!l.length)return"";return `<div class="cblk"><div class="chd"><div><div class="cd-d">${C[c].d}</div><div class="cd-s">${C[c].s}</div></div><span class="cd-r ${C[c].in?'cd-in':'cd-out'}">${C[c].r}</span></div>${l.map(songCard).join("")}</div>`;}).join("");
+  document.getElementById("songL").innerHTML=addBox+cs.map(c=>{const l=songs.filter(s=>s.culto===c);if(!l.length)return"";return `<div class="cblk"><div class="chd"><div><div class="cd-d">${C[c].d}</div><div class="cd-s">${C[c].s}</div></div></div>${l.map(songCard).join("")}</div>`;}).join("");
 }
 function songCard(s){
   const c=cnt(s.id),[sc,sl]=sts(c),ce=canEdit();
   const np=s.parts?Object.values(s.parts).filter(x=>x&&x.trim()).length:0;
+  const tpId="tp-"+s.id,tpSpId="tps-"+s.id;
+  // Teleprompter bar HTML (só para leitura)
+  const tpBar=`<div class="tp-bar">
+    <span class="tp-label">📜 Teleprompter</span>
+    <button class="tp-play" data-container="${tpId}" onclick="tpToggle('${tpId}','${tpSpId}')">▶</button>
+    <div class="tp-speed-wrap"><label>Vel.</label><input class="tp-speed" type="range" id="${tpSpId}" min="0.3" max="5" step="0.1" value="1"></div>
+    <button class="tp-reset" onclick="tpReset('${tpId}','${tpSpId}')">↺ Reiniciar</button>
+  </div>`;
   return `<div class="song"><div class="s-top"><span class="sdot sd-${sc}"></span>
     <div class="s-info"><div class="nm">${esc(s.title)}</div><div class="ar">${esc(s.artist)}</div>
       <div class="s-tags"><span class="s-tag">${sl}</span>${s.tom?`<span class="s-tag">Tom: ${esc(s.tom)}</span>`:""}</div></div>
@@ -2219,10 +2466,11 @@ function songCard(s){
       <input class="tinput" id="tom-${s.id}" value="${esc(s.tom)}" placeholder="Tom (ex: E, Gm, capotraste 2ª)">
       <input class="tinput" id="nt-${s.id}" value="${esc(s.notes)}" placeholder="Notas (ex: atenção na virada)">
       ${role==="admin"?`<input class="tinput" id="vid-${s.id}" value="${esc(s.videoUrl||"")}" placeholder="Link do vídeo YouTube (cole p/ abrir dentro do app)">`:""}
-      <textarea class="ta" id="cf-${s.id}" placeholder="Cifra geral da música...">${esc(s.cifraTxt)}</textarea>
+      ${editArea("cf-"+s.id,s.cifraTxt,"Cifra geral da música... Use **palavra** para negrito")}
       <div class="tsave"><button id="cfb-${s.id}" onclick="saveCifra('${s.id}')">Salvar</button><span class="ti">qualquer músico pode editar</span></div>
       ${role==="admin"?`<button class="del-song" onclick="delSong('${s.id}','${esc(s.title).replace(/'/g,"")}')">🗑 Excluir música</button>`:""}</details>`
-    :(s.cifraTxt?`<button class="read-full" onclick="this.nextElementSibling.classList.toggle('hidden')">📄 Ver/ocultar cifra geral</button><pre class="read-pre hidden">${esc(s.cifraTxt)}</pre>`:"")}
+    :(s.cifraTxt?`<button class="read-full" onclick="this.nextElementSibling.classList.remove('hidden');this.style.display='none'">📄 Ver cifra geral + Teleprompter</button>
+      <div class="hidden">${tpBar}<div class="tp-scroll-container" id="${tpId}"><pre class="read-pre" style="margin:0;border-radius:0 0 11px 11px;border-top:none">${renderBold(esc(s.cifraTxt))}</pre></div></div>`:"")}
   </div>`;
 }
 function setF(f){filt=f;renderSongs();}
@@ -2233,36 +2481,87 @@ function saveCifra(id){
   db.ref(`${ROOT}/songs/${id}`).update(u).then(()=>toast("Cifra salva ✓")).catch(()=>toast("Erro ao salvar — verifique seu login","err")).finally(()=>{b.disabled=false;});
 }
 
-/* ===== YouTube embutido (mini janela) ===== */
+/* ===== YouTube mini-player ===== */
+let _ytVideoVisible = false;
 function openYt(id){
   const s=songs.find(x=>x.id===id);if(!s)return;
   const vid=ytId(s.videoUrl)||ytId(s.youtube);
   document.getElementById("ytTitle").textContent=s.title;
+  document.getElementById("ytAudioTitle").textContent="🎵 "+s.title+(s.artist?" · "+s.artist:"");
   const open=document.getElementById("ytOpen");
+  const frame=document.getElementById("ytFrame");
+  const pane=document.getElementById("ytContentPane");
+  const noContent=document.getElementById("ytNoContent");
+
+  // Monta o iframe (escondido por padrão — apenas áudio)
+  frame.className="yt-frame-hidden";
+  _ytVideoVisible=false;
+  document.getElementById("ytToggleVideo").className="yt-toggle-video";
+  document.getElementById("ytToggleVideo").textContent="📺 Ver vídeo";
+
   if(vid){
-    document.getElementById("ytFrame").innerHTML=`<iframe src="https://www.youtube.com/embed/${vid}?autoplay=1&rel=0" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>`;
+    frame.innerHTML=`<iframe src="https://www.youtube.com/embed/${vid}?autoplay=1&rel=0" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>`;
     open.href="https://www.youtube.com/watch?v="+vid;
   }else{
-    // sem link direto salvo: cai na busca do YouTube (abre fora, pois busca não embeda)
-    document.getElementById("ytFrame").innerHTML=`<div style="position:absolute;inset:0;display:grid;place-items:center;color:#fff;text-align:center;padding:24px;font-size:13px;line-height:1.5">Ainda não há um link de vídeo salvo para esta música.<br>Toque abaixo para procurar no YouTube.</div>`;
+    frame.innerHTML=`<div style="padding:22px;text-align:center;color:#fff;font-size:13px">Nenhum link de vídeo salvo ainda.</div>`;
     open.href=s.youtube;
   }
+
+  // Mostra cifra ou letra no painel de conteúdo
+  const hasCifra=s.cifraTxt&&s.cifraTxt.trim();
+  const hasLetra=s.letraTxt&&s.letraTxt.trim();
+  if(hasCifra||hasLetra){
+    let html=`<div class="yt-cifra-inline">`;
+    if(hasCifra){
+      html+=`<div style="font-size:10.5px;font-weight:800;color:var(--gold);letter-spacing:.07em;text-transform:uppercase;margin-bottom:7px">🎸 Cifra</div>`;
+      html+=`<pre class="read-pre">${renderBold(esc(s.cifraTxt))}</pre>`;
+      if(hasLetra) html+=`<div style="height:1px;background:var(--line);margin:14px 0"></div>`;
+    }
+    if(hasLetra){
+      html+=`<div style="font-size:10.5px;font-weight:800;color:var(--gold);letter-spacing:.07em;text-transform:uppercase;margin-bottom:7px">🎤 Letra</div>`;
+      html+=`<pre class="read-pre lyr">${renderBold(esc(s.letraTxt))}</pre>`;
+    }
+    html+=`</div>`;
+    pane.innerHTML=html;
+  }else{
+    pane.innerHTML=`<div class="yt-no-content">Esta música ainda não tem cifra ou letra adicionada.</div>`;
+  }
+
   document.getElementById("ytModal").classList.add("show");
 }
-function closeYt(){document.getElementById("ytFrame").innerHTML="";document.getElementById("ytModal").classList.remove("show");}
+function toggleYtVideo(){
+  const frame=document.getElementById("ytFrame");
+  const btn=document.getElementById("ytToggleVideo");
+  _ytVideoVisible=!_ytVideoVisible;
+  if(_ytVideoVisible){
+    frame.className="yt-frame-visible";
+    btn.className="yt-toggle-video vid-visible";
+    btn.textContent="📺 Ocultar vídeo";
+  }else{
+    frame.className="yt-frame-hidden";
+    btn.className="yt-toggle-video";
+    btn.textContent="📺 Ver vídeo";
+  }
+}
+function closeYt(){document.getElementById("ytFrame").innerHTML="";document.getElementById("ytModal").classList.remove("show");_ytVideoVisible=false;}
 
 /* ===== Cifras/partituras por instrumento ===== */
 function openPart(id){
   const s=songs.find(x=>x.id===id);if(!s)return;
   document.getElementById("partTitle").textContent="🎼 "+s.title;
   const parts=s.parts||{},ce=canEdit();
-  let h=`<div class="part-intro">Cada instrumento tem sua cifra ou partitura. Toque para abrir.${ce?" Qualquer músico pode editar.":""}</div>`;
+  // Escalação do dia desta música (pelo culto)
+  const escala=EQ_INSTR[s.culto]||{};
+  const diaNome=(C[s.culto]&&C[s.culto].d)||"";
+  let h=`<div class="part-intro">Cada instrumento tem sua cifra ou partitura. Toque para abrir.${ce?" Qualquer músico pode editar.":""}${diaNome?`<br><b style="color:var(--gd)">Escalação · ${diaNome}</b>`:""}</div>`;
   h+=INSTR.map(([k,ic,nm])=>{
     const has=parts[k]&&parts[k].trim();
-    return `<div class="part-row"><div class="part-h" onclick="togglePart('${k}')"><span class="pic">${ic}</span><span class="pnm">${nm}</span><span class="pst ${has?'pst-has':'pst-no'}">${has?'tem cifra':'vazio'}</span></div>
+    const quem=escala[k];
+    const quemTag=quem?`<span class="part-who">🎵 ${esc(quem)}</span>`:"";
+    return `<div class="part-row"><div class="part-h" onclick="togglePart('${k}')"><span class="pic">${ic}</span><span class="pnm">${nm}${quemTag}</span><span class="pst ${has?'pst-has':'pst-no'}">${has?'tem cifra':'vazio'}</span></div>
       <div class="part-c hidden" id="pc-${k}">
-      ${ce?`<textarea class="ta" id="pt-${k}" placeholder="Cole aqui a cifra/partitura de ${nm}...">${esc(parts[k]||"")}</textarea><div class="tsave"><button id="ptb-${k}" onclick="savePart('${s.id}','${k}')">Salvar ${nm}</button></div>`
-      :(has?`<pre class="read-pre">${esc(parts[k])}</pre>`:`<div class="empty-txt">Sem cifra para ${nm} ainda.</div>`)}
+      ${ce?`${editArea("pt-"+k,parts[k],"Cole aqui a cifra/partitura de "+nm+"... Use **palavra** para negrito")}<div class="tsave"><button id="ptb-${k}" onclick="savePart('${s.id}','${k}')">Salvar ${nm}</button></div>`
+      :(has?`<pre class="read-pre">${renderBold(esc(parts[k]))}</pre>`:`<div class="empty-txt">Sem cifra para ${nm} ainda.</div>`)}
       </div></div>`;
   }).join("");
   document.getElementById("partBody").innerHTML=h;
@@ -2296,10 +2595,19 @@ function delSong(id,title){
 function renderLetras(){
   document.getElementById("letraF").innerHTML=[["all","Todas",songs.length]].concat(CO.map(c=>[c,C[c].d,songs.filter(s=>s.culto===c).length])).map(([k,l,n])=>`<button class="fb ${k===lfilt?'active':''}" onclick="setLF('${k}')">${l}<span class="fn">${n}</span></button>`).join("");
   const cs=lfilt==="all"?CO:[lfilt],ce=canEdit();
-  document.getElementById("letraL").innerHTML=cs.map(c=>{const l=songs.filter(s=>s.culto===c);if(!l.length)return"";return `<div class="cblk"><div class="chd"><div><div class="cd-d">${C[c].d}</div><div class="cd-s">${C[c].s}</div></div></div>${l.map(s=>`<div class="song"><div class="s-top"><div class="s-info"><div class="nm">🎤 ${esc(s.title)}</div><div class="ar">${esc(s.artist)}</div></div><button class="sa yt" onclick="openYt('${s.id}')">▶</button></div>
-    ${ce?`<textarea class="ta lyr" id="ly-${s.id}" placeholder="Cole a letra aqui...">${esc(s.letraTxt)}</textarea><div class="tsave"><button id="lyb-${s.id}" onclick="saveLetra('${s.id}')">Salvar letra</button><span class="ti">músicos e cantores podem editar</span></div>`
-    :(s.letraTxt?`<button class="read-full" onclick="this.nextElementSibling.classList.toggle('hidden')">🎤 Ver/ocultar letra</button><pre class="read-pre lyr hidden">${esc(s.letraTxt)}</pre>`:`<div class="empty-txt">Letra ainda não adicionada.</div>`)}
-    </div>`).join("")}</div>`;}).join("");
+  document.getElementById("letraL").innerHTML=cs.map(c=>{const l=songs.filter(s=>s.culto===c);if(!l.length)return"";return `<div class="cblk"><div class="chd"><div><div class="cd-d">${C[c].d}</div><div class="cd-s">${C[c].s}</div></div></div>${l.map(s=>{
+    const tpId="tpl-"+s.id,tpSpId="tpls-"+s.id;
+    const tpBar=`<div class="tp-bar">
+      <span class="tp-label">📜 Teleprompter</span>
+      <button class="tp-play" data-container="${tpId}" onclick="tpToggle('${tpId}','${tpSpId}')">▶</button>
+      <div class="tp-speed-wrap"><label>Vel.</label><input class="tp-speed" type="range" id="${tpSpId}" min="0.3" max="5" step="0.1" value="1"></div>
+      <button class="tp-reset" onclick="tpReset('${tpId}','${tpSpId}')">↺ Reiniciar</button>
+    </div>`;
+    return `<div class="song"><div class="s-top"><div class="s-info"><div class="nm">🎤 ${esc(s.title)}</div><div class="ar">${esc(s.artist)}</div></div><button class="sa yt" onclick="openYt('${s.id}')">▶</button></div>
+    ${ce?`${editArea("ly-"+s.id,s.letraTxt,"Cole a letra aqui... Use **palavra** para negrito","lyr")}<div class="tsave"><button id="lyb-${s.id}" onclick="saveLetra('${s.id}')">Salvar letra</button><span class="ti">músicos e cantores podem editar</span></div>`
+    :(s.letraTxt?`<button class="read-full" onclick="this.nextElementSibling.classList.remove('hidden');this.style.display='none'">🎤 Ver letra + Teleprompter</button>
+      <div class="hidden">${tpBar}<div class="tp-scroll-container" id="${tpId}"><pre class="read-pre lyr" style="margin:0;border-radius:0 0 11px 11px;border-top:none">${renderBold(esc(s.letraTxt))}</pre></div></div>`:`<div class="empty-txt">Letra ainda não adicionada.</div>`)}
+    </div>`;}).join("")}</div>`;}).join("");
 }
 function setLF(f){lfilt=f;renderLetras();}
 function saveLetra(id){
