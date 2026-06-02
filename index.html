@@ -361,9 +361,389 @@ details.ed summary::before{content:"✎";font-size:13px}
 /* ícone-botão instrumento no card */
 .sa.inst{color:var(--gold-dim)}
 .sa .badge-n{background:var(--gb);color:#fff;border-radius:20px;font-size:9px;font-weight:800;padding:0 5px;margin-left:1px}
+  /* ================================
+   LAYOUT V2 - CN2 ENSAIOS 40 ANOS
+   Cole este bloco no final do CSS atual
+================================ */
+
+:root {
+  --cn2-verde-900: #0f2f24;
+  --cn2-verde-800: #164434;
+  --cn2-verde-700: #1f5c46;
+  --cn2-dourado: #d8b25c;
+  --cn2-dourado-claro: #f3df9f;
+  --cn2-fundo: #f7f4ec;
+  --cn2-card: #ffffff;
+  --cn2-texto: #17231f;
+  --cn2-texto-suave: #68736d;
+  --cn2-borda: #e7dfcf;
+  --cn2-sombra: 0 18px 40px rgba(15, 47, 36, 0.12);
+  --cn2-raio: 22px;
+}
+
+.layout-v2 {
+  margin: 0;
+  background:
+    radial-gradient(circle at top right, rgba(216, 178, 92, 0.18), transparent 340px),
+    linear-gradient(180deg, #fbf8ef 0%, #f7f4ec 55%, #efe8d8 100%);
+  color: var(--cn2-texto);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.layout-v2 * {
+  box-sizing: border-box;
+}
+
+.layout-v2 img {
+  max-width: 100%;
+}
+
+/* Container geral */
+.layout-v2 main,
+.layout-v2 .app,
+.layout-v2 .container,
+.layout-v2 #app {
+  width: min(1180px, calc(100% - 28px));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Tela inicial / login */
+.layout-v2 .login,
+.layout-v2 .login-screen,
+.layout-v2 #login,
+.layout-v2 .start-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  background:
+    radial-gradient(circle at top right, rgba(216, 178, 92, 0.25), transparent 360px),
+    linear-gradient(135deg, #0f2f24, #1f5c46);
+}
+
+.layout-v2 .login > div,
+.layout-v2 .login-screen > div,
+.layout-v2 #login > div,
+.layout-v2 .start-screen > div {
+  width: min(980px, 100%);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 32px;
+  padding: clamp(24px, 4vw, 42px);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(14px);
+}
+
+/* Logos */
+.layout-v2 img[alt*="40"],
+.layout-v2 img[src*="40"],
+.layout-v2 img[src*="Logo_aniversario"] {
+  display: block;
+  max-width: 210px;
+  margin: 0 auto 18px;
+  filter: drop-shadow(0 12px 20px rgba(15, 47, 36, 0.16));
+}
+
+.layout-v2 img[alt*="CN2"],
+.layout-v2 img[src*="logo"] {
+  object-fit: contain;
+}
+
+/* Títulos */
+.layout-v2 h1,
+.layout-v2 h2,
+.layout-v2 h3 {
+  color: var(--cn2-verde-900);
+  letter-spacing: -0.03em;
+}
+
+.layout-v2 h1 {
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  line-height: 0.95;
+  margin: 8px 0 12px;
+}
+
+.layout-v2 h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  margin: 0 0 6px;
+}
+
+.layout-v2 h3 {
+  font-size: 1.1rem;
+  margin-top: 0;
+}
+
+/* Botões gerais */
+.layout-v2 button,
+.layout-v2 .btn,
+.layout-v2 a.button {
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-weight: 800;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--cn2-verde-900), var(--cn2-verde-700));
+  color: white;
+  box-shadow: 0 10px 24px rgba(15, 47, 36, 0.18);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+}
+
+.layout-v2 button:hover,
+.layout-v2 .btn:hover,
+.layout-v2 a.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgba(15, 47, 36, 0.22);
+}
+
+.layout-v2 button:active {
+  transform: translateY(0);
+}
+
+/* Inputs */
+.layout-v2 input,
+.layout-v2 select,
+.layout-v2 textarea {
+  width: 100%;
+  border: 1px solid var(--cn2-borda);
+  border-radius: 16px;
+  padding: 13px 15px;
+  background: white;
+  color: var(--cn2-texto);
+  outline: none;
+}
+
+.layout-v2 input:focus,
+.layout-v2 select:focus,
+.layout-v2 textarea:focus {
+  border-color: var(--cn2-dourado);
+  box-shadow: 0 0 0 4px rgba(216, 178, 92, 0.18);
+}
+
+/* Cards gerais */
+.layout-v2 section,
+.layout-v2 .card,
+.layout-v2 .panel,
+.layout-v2 .box,
+.layout-v2 article {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--cn2-borda);
+  border-radius: var(--cn2-raio);
+  box-shadow: 0 12px 30px rgba(15, 47, 36, 0.08);
+}
+
+/* Espaçamento das seções */
+.layout-v2 section {
+  padding: clamp(18px, 3vw, 28px);
+  margin: 22px 0;
+}
+
+/* Cabeçalho principal */
+.layout-v2 header,
+.layout-v2 .header,
+.layout-v2 .topbar {
+  width: min(1180px, calc(100% - 28px));
+  margin: 22px auto;
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at right top, rgba(216, 178, 92, 0.28), transparent 300px),
+    linear-gradient(135deg, #0f2f24, #1f5c46);
+  color: white;
+  box-shadow: var(--cn2-sombra);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.layout-v2 header h1,
+.layout-v2 .header h1,
+.layout-v2 .topbar h1,
+.layout-v2 header h2,
+.layout-v2 .header h2,
+.layout-v2 .topbar h2 {
+  color: white;
+}
+
+.layout-v2 header p,
+.layout-v2 .header p,
+.layout-v2 .topbar p,
+.layout-v2 header span,
+.layout-v2 .header span,
+.layout-v2 .topbar span {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* Menu principal */
+.layout-v2 nav,
+.layout-v2 .nav,
+.layout-v2 .tabs {
+  width: min(1180px, calc(100% - 28px));
+  margin: 18px auto;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--cn2-borda);
+  border-radius: 999px;
+  padding: 10px;
+  box-shadow: 0 10px 26px rgba(15, 47, 36, 0.08);
+}
+
+.layout-v2 nav button,
+.layout-v2 .nav button,
+.layout-v2 .tabs button,
+.layout-v2 nav a,
+.layout-v2 .nav a,
+.layout-v2 .tabs a {
+  background: transparent;
+  color: var(--cn2-verde-900);
+  box-shadow: none;
+  text-decoration: none;
+  padding: 10px 16px;
+}
+
+.layout-v2 nav button:hover,
+.layout-v2 .nav button:hover,
+.layout-v2 .tabs button:hover,
+.layout-v2 nav a:hover,
+.layout-v2 .nav a:hover,
+.layout-v2 .tabs a:hover,
+.layout-v2 .active {
+  background: var(--cn2-verde-900) !important;
+  color: white !important;
+}
+
+/* Grades e listas */
+.layout-v2 .grid,
+.layout-v2 .cards,
+.layout-v2 .dashboard,
+.layout-v2 .metrics,
+.layout-v2 .kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+/* Tabelas: mantém funcionando, mas melhora a aparência */
+.layout-v2 table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+.layout-v2 th {
+  color: var(--cn2-texto-suave);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-align: left;
+  padding: 8px 12px;
+}
+
+.layout-v2 td {
+  background: white;
+  padding: 14px 12px;
+  border-top: 1px solid var(--cn2-borda);
+  border-bottom: 1px solid var(--cn2-borda);
+}
+
+.layout-v2 td:first-child {
+  border-left: 1px solid var(--cn2-borda);
+  border-radius: 16px 0 0 16px;
+}
+
+.layout-v2 td:last-child {
+  border-right: 1px solid var(--cn2-borda);
+  border-radius: 0 16px 16px 0;
+}
+
+/* Badges / status */
+.layout-v2 .badge,
+.layout-v2 .status,
+.layout-v2 .pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 7px 11px;
+  background: var(--cn2-dourado-claro);
+  color: var(--cn2-verde-900);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+/* Links */
+.layout-v2 a {
+  color: var(--cn2-verde-700);
+  font-weight: 700;
+}
+
+/* Playlist / YouTube */
+.layout-v2 a[href*="youtube"],
+.layout-v2 a[href*="youtu.be"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1px solid var(--cn2-borda);
+  border-radius: 999px;
+  padding: 11px 16px;
+  text-decoration: none;
+  color: var(--cn2-verde-900);
+  box-shadow: 0 10px 24px rgba(15, 47, 36, 0.08);
+}
+
+/* Modal */
+.layout-v2 dialog,
+.layout-v2 .modal {
+  border: 0;
+  border-radius: 26px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.32);
+}
+
+/* Mobile */
+@media (max-width: 760px) {
+  .layout-v2 {
+    background: #f7f4ec;
+  }
+
+  .layout-v2 header,
+  .layout-v2 .header,
+  .layout-v2 .topbar {
+    margin-top: 12px;
+    border-radius: 24px;
+  }
+
+  .layout-v2 nav,
+  .layout-v2 .nav,
+  .layout-v2 .tabs {
+    border-radius: 20px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+
+  .layout-v2 nav button,
+  .layout-v2 .nav button,
+  .layout-v2 .tabs button,
+  .layout-v2 nav a,
+  .layout-v2 .nav a,
+  .layout-v2 .tabs a {
+    white-space: nowrap;
+  }
+
+  .layout-v2 table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .layout-v2 section {
+    padding: 18px;
+  }
+}
 </style>
 </head>
-<body>
+<body class="layout-v2">
 
 <div id="login">
   <div class="lg-card">
