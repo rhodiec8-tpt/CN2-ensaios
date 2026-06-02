@@ -1270,7 +1270,199 @@ body.layout-v2 {
 /* ==================================================
    PATCH 03 — POLIMENTO DO LAYOUT ATUAL
 ================================================== */
+/* ==================================================
+   PATCH 04 — DASHBOARD MAIS PROFISSIONAL
+================================================== */
 
+/* Cabeçalho principal depois do login */
+.app-header,
+.topbar,
+header {
+  position: relative;
+  overflow: hidden;
+}
+
+.app-header::before,
+.topbar::before,
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(255,255,255,0.10) 1px, transparent 0);
+  background-size: 22px 22px;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.app-header > *,
+.topbar > *,
+header > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Logo no cabeçalho */
+.app-header img,
+.topbar img,
+header img {
+  background: rgba(255,255,255,0.95);
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+}
+
+/* Badge do perfil: visitante, músico, admin */
+.app-header .badge,
+.topbar .badge,
+header .badge,
+.app-header [class*="role"],
+.topbar [class*="role"],
+header [class*="role"] {
+  background: #f3df9f !important;
+  color: #0f2f24 !important;
+  border-radius: 999px !important;
+  padding: 9px 18px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Cards de indicadores do dashboard */
+.dashboard .card,
+.dashboard-card,
+.metric-card,
+.kpi-card,
+.stat-card {
+  background:
+    radial-gradient(circle at top right, rgba(216,178,92,0.20), transparent 90px),
+    #fffdf7 !important;
+  border: 1px solid #e7dfcf !important;
+  border-radius: 24px !important;
+  padding: 22px !important;
+  box-shadow: 0 14px 32px rgba(15,47,36,0.09) !important;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.dashboard .card:hover,
+.dashboard-card:hover,
+.metric-card:hover,
+.kpi-card:hover,
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 42px rgba(15,47,36,0.14) !important;
+}
+
+/* Números grandes dos indicadores */
+.dashboard .card strong,
+.dashboard-card strong,
+.metric-card strong,
+.kpi-card strong,
+.stat-card strong,
+.dashboard .card b,
+.dashboard-card b,
+.metric-card b,
+.kpi-card b,
+.stat-card b {
+  color: #0f2f24 !important;
+  font-size: clamp(1.8rem, 3vw, 2.8rem) !important;
+  line-height: 1 !important;
+  font-weight: 900 !important;
+}
+
+/* Texto pequeno dos cards */
+.dashboard .card small,
+.dashboard-card small,
+.metric-card small,
+.kpi-card small,
+.stat-card small {
+  color: #68736d !important;
+  font-weight: 700 !important;
+}
+
+/* Blocos internos do dashboard */
+.dashboard section,
+#dashboard section,
+.dashboard .panel,
+#dashboard .panel {
+  border-radius: 28px !important;
+  background: rgba(255,255,255,0.94) !important;
+  border: 1px solid #e7dfcf !important;
+  box-shadow: 0 16px 38px rgba(15,47,36,0.08) !important;
+}
+
+/* Progresso por culto */
+.progress-row,
+.cult-progress,
+[class*="progress"] {
+  border-radius: 999px;
+}
+
+progress,
+.progress-bar {
+  height: 10px !important;
+  border-radius: 999px !important;
+  overflow: hidden;
+  background: #e8dfce !important;
+}
+
+progress::-webkit-progress-bar {
+  background: #e8dfce;
+  border-radius: 999px;
+}
+
+progress::-webkit-progress-value {
+  background: linear-gradient(90deg, #0f2f24, #d8b25c);
+  border-radius: 999px;
+}
+
+/* Lista do dashboard */
+.dashboard li,
+#dashboard li,
+.dashboard .item,
+#dashboard .item {
+  border-radius: 18px !important;
+  background: #fffdf7 !important;
+  border: 1px solid #e7dfcf !important;
+  padding: 14px 16px !important;
+  margin-bottom: 10px !important;
+}
+
+/* Menu: melhora botão ativo */
+nav .active,
+.tabs .active,
+.app-nav .active,
+nav button.active,
+.tabs button.active,
+.app-nav button.active {
+  background: #0f2f24 !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 24px rgba(15,47,36,0.22) !important;
+}
+
+/* Deixa o conteúdo respirar */
+main,
+.app,
+.container {
+  padding-bottom: 50px;
+}
+
+/* Ajuste para telas pequenas */
+@media (max-width: 760px) {
+  .dashboard .card,
+  .dashboard-card,
+  .metric-card,
+  .kpi-card,
+  .stat-card {
+    padding: 18px !important;
+  }
+
+  .app-header,
+  .topbar,
+  header {
+    margin-top: 12px !important;
+  }
+}
 body.layout-v2 {
   background:
     radial-gradient(circle at top left, rgba(216, 178, 92, 0.12), transparent 360px),
