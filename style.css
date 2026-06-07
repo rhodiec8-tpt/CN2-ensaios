@@ -2003,3 +2003,174 @@ section.pnl{
     padding:0!important;
   }
 }
+
+/* ==================================================================
+   TEMA "CALOROSO & ACOLHEDOR" — v2 (junho 2026)
+   Verde profundo + dourado-mel + terracota · cantos macios · sombras quentes
+   Este bloco sobrescreve o visual anterior. Funcionamento intacto.
+================================================================== */
+:root{
+  --ink:#2a2018; --ink2:#5a4d3f; --ink3:#8a7d6d;
+  --paper:#f2e9d8; --paper2:#e9dcc4; --card:#fdf9ef;
+  --green:#3a7d5e; --gd:#1f3d2f; --gd2:#2c5440; --gb:#3a7d5e; --g-light:#e4efe6;
+  --gold:#c19a3e; --golds:#dab85e; --gold-dim:#a8842f; --gold-warm:#e8c876;
+  --terra:#b5663a; --terra-soft:#c9805a;
+  --red:#b5663a; --amber:#c2801a;
+  --line:#e0d4bd; --line2:rgba(120,90,40,.10);
+  --sh:0 3px 10px rgba(120,90,40,.06),0 12px 28px rgba(120,90,40,.05);
+  --shl:0 6px 18px rgba(120,90,40,.10),0 24px 50px rgba(120,90,40,.12);
+  --r:20px;
+}
+body.layout-v2{background:var(--paper)!important}
+
+/* ---------- LOGIN ---------- */
+.layout-v2 #login{background:linear-gradient(165deg,#1f3d2f 0%,#2c5440 100%)!important}
+.layout-v2 .lg-card{background:var(--card)!important;border-radius:28px!important;box-shadow:0 30px 70px rgba(0,0,0,.3)!important;border:1px solid rgba(224,212,189,.5)!important}
+.layout-v2 .lg-logo{border-radius:18px!important;box-shadow:0 10px 26px rgba(31,61,47,.18)!important}
+.layout-v2 .lg-title{font-family:var(--df)!important;color:var(--gd)!important;font-weight:600!important}
+.layout-v2 .lg-title em{color:var(--gold)!important;font-style:italic!important}
+.layout-v2 .lbtn{border:1.5px solid var(--line)!important;background:var(--gd)!important;color:#fff!important;border-radius:16px!important;padding:16px 18px!important;box-shadow:0 6px 16px rgba(31,61,47,.16)!important}
+.layout-v2 .lbtn small{color:rgba(255,255,255,.6)!important}
+.layout-v2 .lbtn .ic{filter:none!important}
+.layout-v2 .lf-i{border:1.5px solid var(--line)!important;border-radius:13px!important;background:#fff!important}
+.layout-v2 .lf-i:focus{border-color:var(--gb)!important;box-shadow:0 0 0 3px rgba(58,125,94,.14)!important}
+.layout-v2 .lf-go{background:var(--gd)!important;color:#fff!important;border-radius:13px!important;font-weight:700!important}
+.layout-v2 .lf-back{color:var(--ink3)!important}
+
+/* ---------- HEADER ---------- */
+.layout-v2 header.top{background:linear-gradient(160deg,#1f3d2f 0%,#2c5440 100%)!important;border-radius:0 0 28px 28px!important;position:relative;overflow:hidden}
+.layout-v2 header.top::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 85% 12%,rgba(232,200,118,.20),transparent 52%);pointer-events:none}
+.layout-v2 .top-logo{border-radius:14px!important;box-shadow:0 4px 14px rgba(0,0,0,.22)!important}
+.layout-v2 .top-kick{color:var(--gold-warm)!important;letter-spacing:.14em!important}
+.layout-v2 .top-h1{font-family:var(--df)!important;color:#fff!important;font-weight:600!important}
+.layout-v2 .top-h1 em{color:var(--gold-warm)!important;font-style:italic!important}
+.layout-v2 .badge{background:rgba(232,200,118,.18)!important;border:1px solid rgba(232,200,118,.4)!important;color:var(--gold-warm)!important;border-radius:30px!important;font-weight:700!important}
+.layout-v2 .badge.b-adm{background:rgba(232,200,118,.22)!important;color:var(--gold-warm)!important}
+.layout-v2 .badge.b-vis{background:rgba(255,255,255,.14)!important;color:rgba(255,255,255,.85)!important;border-color:rgba(255,255,255,.2)!important}
+.layout-v2 .kpi{background:rgba(255,255,255,.07)!important;border:1px solid rgba(255,255,255,.12)!important;border-radius:16px!important}
+.layout-v2 .kl{color:var(--gold-warm)!important}
+.layout-v2 .kv,.layout-v2 .cn{color:#fff!important;font-family:var(--df)!important}
+.layout-v2 .cl{color:rgba(244,239,226,.7)!important}
+
+/* ---------- NAV (topo) ---------- */
+.layout-v2 nav.tabs,.layout-v2 .tabs{background:var(--card)!important;border:1px solid var(--line)!important;border-radius:16px!important;box-shadow:0 6px 18px rgba(31,61,47,.08)!important}
+.layout-v2 nav.tabs .tab,.tabs .tab{color:var(--ink2)!important;border-radius:11px!important;font-weight:700!important}
+.layout-v2 nav.tabs .tab:hover,.tabs .tab:hover{background:rgba(31,61,47,.06)!important;color:var(--gd)!important}
+.layout-v2 nav.tabs .tab.active,.tabs .tab.active{background:var(--gd)!important;color:#fff!important;box-shadow:0 4px 12px rgba(31,61,47,.25)!important}
+
+/* ---------- HERO (dashboard) ---------- */
+.layout-v2 .hero{border-radius:26px!important;overflow:hidden;background:linear-gradient(160deg,#1f3d2f 0%,#2c5440 100%)!important;box-shadow:var(--shl)!important}
+.layout-v2 .hero-bg{background:radial-gradient(circle at 82% 14%,rgba(232,200,118,.20),transparent 50%)!important}
+.layout-v2 .blogo{border-radius:18px!important;box-shadow:0 8px 22px rgba(0,0,0,.22)!important}
+.layout-v2 .bk{color:var(--gold-warm)!important}
+.layout-v2 .bt{font-family:var(--df)!important;color:#fff!important}
+.layout-v2 .bt em{color:var(--gold-warm)!important}
+.layout-v2 .hero-lead{font-family:var(--df)!important;color:#fff!important;font-style:italic!important}
+.layout-v2 .hero-sub{color:rgba(244,239,226,.78)!important}
+.layout-v2 .chip{background:rgba(232,200,118,.16)!important;border:1px solid rgba(232,200,118,.34)!important;color:var(--gold-warm)!important;border-radius:30px!important}
+.layout-v2 .chip b{color:#fff!important}
+
+/* ---------- STATS (cartõezinhos de número) ---------- */
+.layout-v2 .stats .st,.layout-v2 .st{background:var(--card)!important;border:1px solid var(--line)!important;border-radius:18px!important;box-shadow:var(--sh)!important}
+.layout-v2 .st .n{font-family:var(--df)!important;color:var(--gd)!important;font-weight:600!important}
+.layout-v2 .st.g .n{color:var(--gb)!important}
+.layout-v2 .st.a .n{color:var(--gold)!important}
+.layout-v2 .st.r .n{color:var(--terra)!important}
+.layout-v2 .st .l{color:var(--ink3)!important}
+
+/* ---------- CARDS (crd) e cabeçalho de seção ---------- */
+.layout-v2 .crd{background:var(--card)!important;border:1px solid var(--line)!important;border-radius:22px!important;box-shadow:var(--sh)!important}
+.layout-v2 .crd h3{font-family:var(--df)!important;color:var(--gd)!important;font-weight:600!important}
+.layout-v2 .crd .cs{color:var(--ink3)!important;font-style:italic}
+.layout-v2 .sh h2{font-family:var(--df)!important;color:var(--gd)!important;font-weight:600!important}
+.layout-v2 .sh .hn{color:var(--ink3)!important;font-style:italic;font-family:var(--df)!important}
+
+/* ---------- FILTROS por dia ---------- */
+.layout-v2 .fbar .fb,.layout-v2 .fb{border:1.5px solid var(--line)!important;background:var(--card)!important;color:var(--ink2)!important;border-radius:30px!important;font-weight:700!important}
+.layout-v2 .fb.active{background:var(--gd)!important;color:#fff!important;border-color:var(--gd)!important}
+.layout-v2 .fb .fn{background:rgba(0,0,0,.12)!important;color:var(--ink2)!important;border-radius:20px!important}
+.layout-v2 .fb.active .fn{background:rgba(232,200,118,.3)!important;color:var(--gold-warm)!important}
+
+/* cabeçalho de bloco de culto */
+.layout-v2 .chd .cd-d{font-family:var(--df)!important;color:var(--gd)!important;font-weight:600!important}
+.layout-v2 .chd .cd-s{color:var(--ink3)!important}
+
+/* ---------- CARD de MÚSICA ---------- */
+.layout-v2 .song{background:var(--card)!important;border:1px solid var(--line)!important;border-radius:20px!important;box-shadow:var(--sh)!important;padding:17px 17px 15px!important}
+.layout-v2 .nm{font-family:var(--df)!important;color:var(--ink)!important;font-weight:600!important;line-height:1.15!important}
+.layout-v2 .ar{color:var(--ink3)!important}
+.layout-v2 .sdot{background:var(--terra)!important;box-shadow:0 0 0 4px rgba(181,102,58,.14)!important}
+.layout-v2 .sdot.sd-g{background:var(--gb)!important;box-shadow:0 0 0 4px rgba(58,125,94,.16)!important}
+.layout-v2 .sdot.sd-a{background:var(--gold)!important;box-shadow:0 0 0 4px rgba(193,154,62,.16)!important}
+.layout-v2 .sdot.sd-r{background:var(--terra)!important;box-shadow:0 0 0 4px rgba(181,102,58,.14)!important}
+.layout-v2 .s-tag{background:var(--g-light)!important;color:var(--gd)!important;border-radius:20px!important;font-weight:700!important}
+.layout-v2 .s-cnt .v{font-family:var(--df)!important;color:var(--gd)!important;font-weight:600!important}
+.layout-v2 .s-cnt .l{color:var(--ink3)!important}
+
+/* botões de ação do card */
+.layout-v2 .sa{border:none!important;border-radius:11px!important;font-weight:700!important}
+.layout-v2 .sa.yt{background:var(--terra)!important;color:#fff!important}
+.layout-v2 .sa.inst{background:var(--gd)!important;color:#fff!important}
+.layout-v2 .sa.cf{background:transparent!important;border:1.5px solid var(--line)!important;color:var(--gb)!important}
+.layout-v2 .badge-n{background:rgba(232,200,118,.4)!important;color:var(--gd)!important}
+
+/* notas, detalhes de edição */
+.layout-v2 .note{background:rgba(232,200,118,.14)!important;border-radius:12px!important;color:var(--ink2)!important}
+.layout-v2 .read-full{color:var(--gb)!important;font-weight:700!important}
+.layout-v2 .tinput,.layout-v2 .ta{border:1.5px solid var(--line)!important;border-radius:12px!important;background:#fff!important}
+.layout-v2 .tinput:focus,.layout-v2 .ta:focus{border-color:var(--gb)!important;box-shadow:0 0 0 3px rgba(58,125,94,.12)!important}
+.layout-v2 .tsave button{background:var(--gd)!important;color:#fff!important;border-radius:11px!important;font-weight:700!important}
+.layout-v2 .del-song{background:transparent!important;border:1.5px solid var(--terra)!important;color:var(--terra)!important;border-radius:11px!important}
+
+/* ---------- CALENDÁRIO ---------- */
+.layout-v2 .cv-toggle .cv-btn{border:1.5px solid var(--line)!important;background:var(--card)!important;color:var(--ink2)!important;border-radius:11px!important;font-weight:700!important}
+.layout-v2 .cv-toggle .cv-btn.active{background:var(--gd)!important;color:#fff!important;border-color:var(--gd)!important}
+.layout-v2 .ev{background:var(--card)!important;border:1px solid var(--line)!important;border-radius:18px!important;box-shadow:var(--sh)!important}
+.layout-v2 .ev-d,.layout-v2 .ev-h{font-family:var(--df)!important;color:var(--gd)!important;font-weight:600!important}
+
+/* ---------- BOTÕES / pills genéricos de presença e ensaio ---------- */
+.layout-v2 .qb,.layout-v2 .pself-btn{border-radius:11px!important;font-weight:700!important}
+.layout-v2 .pself-btn.pself-in,.layout-v2 .good{background:var(--gb)!important;color:#fff!important}
+.layout-v2 .pself-btn.pself-out{background:transparent!important;border:1.5px solid var(--line)!important;color:var(--ink2)!important}
+
+/* ---------- MODAIS ---------- */
+.layout-v2 .modal-box{background:var(--card)!important;border-radius:26px!important;box-shadow:0 30px 70px rgba(0,0,0,.3)!important}
+.layout-v2 .modal-head{border-bottom:1px solid var(--line)!important}
+.layout-v2 .modal-head span{font-family:var(--df)!important;color:var(--gd)!important;font-weight:600!important}
+.layout-v2 .modal-x{background:var(--gd)!important;color:#fff!important}
+.layout-v2 .part-row{background:var(--paper2)!important;border-radius:14px!important}
+.layout-v2 .part-h .pnm{color:var(--ink)!important;font-weight:700!important}
+.layout-v2 .part-who{background:var(--g-light)!important;color:var(--gb)!important}
+.layout-v2 .pst-has{background:var(--g-light)!important;color:var(--gb)!important}
+.layout-v2 .pst-no{background:rgba(120,90,40,.1)!important;color:var(--ink3)!important}
+.layout-v2 .read-pre{background:var(--paper2)!important;border:1px solid var(--line)!important;border-radius:12px!important}
+.layout-v2 .read-pre b,.layout-v2 .read-pre strong{color:var(--gd)!important;font-weight:800!important}
+
+/* YouTube mini-player */
+.layout-v2 .yt-audio-bar{background:var(--gd)!important}
+.layout-v2 .yt-toggle-video{background:rgba(255,255,255,.15)!important;color:#fff!important;border-radius:10px!important}
+.layout-v2 .yt-open{color:var(--gb)!important;font-weight:700!important}
+
+/* Teleprompter — base verde profunda + dourado-mel */
+.layout-v2 .tp-bar{background:var(--gd)!important;border-radius:12px!important}
+.layout-v2 .tp-label{color:var(--gold-warm)!important}
+.layout-v2 .tp-play{background:var(--gold-warm)!important;color:var(--gd)!important}
+.layout-v2 .tp-play.running{background:#7fd6a0!important}
+.layout-v2 .tp-speed::-webkit-slider-thumb{background:var(--gold-warm)!important}
+.layout-v2 .tp-speed::-moz-range-thumb{background:var(--gold-warm)!important}
+
+/* barra de formatação (negrito) */
+.layout-v2 .fmt-wrap{border:1.5px solid var(--line)!important;border-radius:13px!important}
+.layout-v2 .fmt-wrap:focus-within{border-color:var(--gb)!important;box-shadow:0 0 0 3px rgba(58,125,94,.12)!important}
+.layout-v2 .fmt-bar{background:var(--paper2)!important;border-bottom:1px solid var(--line)!important}
+.layout-v2 .fmt-btn{background:#fff!important;border:1.5px solid var(--line)!important;color:var(--ink2)!important}
+.layout-v2 .fmt-btn:hover{border-color:var(--gb)!important;background:var(--g-light)!important;color:var(--gd)!important}
+
+/* rodapé */
+.layout-v2 .footer a{color:var(--gb)!important;font-weight:700!important}
+.layout-v2 .footer .lo{background:transparent!important;border:1.5px solid var(--line)!important;color:var(--ink2)!important;border-radius:11px!important}
+
+/* botão "adicionar música" (admin) */
+.layout-v2 .addsong summary{background:var(--gd)!important;color:#fff!important;border-radius:12px!important}
+.layout-v2 .addsong button{background:var(--gd)!important;color:#fff!important;border-radius:11px!important}
+.layout-v2 .addgrid input{border:1.5px solid var(--line)!important;border-radius:11px!important}
