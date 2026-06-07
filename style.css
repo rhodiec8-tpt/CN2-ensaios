@@ -2049,7 +2049,19 @@ body.layout-v2{background:var(--paper)!important}
 .layout-v2 .badge.b-vis{background:rgba(255,255,255,.14)!important;color:rgba(255,255,255,.85)!important;border-color:rgba(255,255,255,.2)!important}
 .layout-v2 .kpi{background:rgba(255,255,255,.07)!important;border:1px solid rgba(255,255,255,.12)!important;border-radius:16px!important}
 .layout-v2 .kl{color:var(--gold-warm)!important}
-.layout-v2 .kv,.layout-v2 .cn{color:#fff!important;font-family:var(--df)!important}
+.layout-v2 .kv,.layout-v2 .kpi .cn,.layout-v2 .top-r2 .cn{color:#fff!important;font-family:var(--df)!important}
+/* nome da música na lista de marcar ensaio: cor escura legível sobre fundo creme */
+.layout-v2 .chk .cn{color:var(--ink)!important;font-family:var(--bf)!important;font-weight:600!important}
+.layout-v2 .chk input:checked+.cn{color:var(--gd)!important}
+/* checkbox da lista de músicas: 21x21, NÃO largura cheia (a regra genérica de input estava inflando) */
+.layout-v2 .chk{display:flex!important;align-items:center!important;gap:11px!important;padding:9px 11px!important;border-radius:11px!important}
+.layout-v2 .chk input[type="checkbox"]{width:22px!important;height:22px!important;flex:none!important;padding:0!important;border:2px solid var(--line)!important;border-radius:7px!important;background:#fff!important;appearance:none!important;-webkit-appearance:none!important;position:relative!important}
+.layout-v2 .chk input[type="checkbox"]:checked{background:var(--gb)!important;border-color:var(--gb)!important}
+.layout-v2 .chk input[type="checkbox"]:checked::after{content:""!important;position:absolute!important;left:6px!important;top:2.5px!important;width:5px!important;height:9px!important;border:solid #fff!important;border-width:0 2.5px 2.5px 0!important;transform:rotate(45deg)!important}
+.layout-v2 .chk .cn{flex:1!important;min-width:0!important;font-size:14px!important}
+.layout-v2 .chk .cc{color:var(--ink3)!important}
+.layout-v2 .chk input:checked{background:var(--gb)!important;border-color:var(--gb)!important}
+.layout-v2 .grp{color:var(--gold)!important}
 .layout-v2 .cl{color:rgba(244,239,226,.7)!important}
 
 /* ---------- NAV (topo) ---------- */
