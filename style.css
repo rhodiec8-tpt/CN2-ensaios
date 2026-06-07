@@ -2126,7 +2126,14 @@ body.layout-v2{background:var(--paper)!important}
 .layout-v2 .cv-toggle .cv-btn{border:1.5px solid var(--line)!important;background:var(--card)!important;color:var(--ink2)!important;border-radius:11px!important;font-weight:700!important}
 .layout-v2 .cv-toggle .cv-btn.active{background:var(--gd)!important;color:#fff!important;border-color:var(--gd)!important}
 .layout-v2 .ev{background:var(--card)!important;border:1px solid var(--line)!important;border-radius:18px!important;box-shadow:var(--sh)!important}
-.layout-v2 .ev-d,.layout-v2 .ev-h{font-family:var(--df)!important;color:var(--gd)!important;font-weight:600!important}
+.layout-v2 .ev-h{font-family:var(--df)!important;color:var(--gd)!important;font-weight:600!important}
+/* badge de data (fundo verde) — número claro e mês dourado, NÃO verde sobre verde */
+.layout-v2 .ev-d{background:var(--gd)!important;border-radius:13px!important}
+.layout-v2 .ev-d .dd{font-family:var(--df)!important;color:#fff!important;font-weight:700!important}
+.layout-v2 .ev-d .dm{color:var(--gold-warm)!important;font-weight:800!important}
+.layout-v2 .ev.gen .ev-d{background:var(--gold)!important}
+.layout-v2 .ev.gen .ev-d .dd{color:var(--gd)!important}
+.layout-v2 .ev.gen .ev-d .dm{color:#5a4410!important}
 
 /* ---------- BOTÕES / pills genéricos de presença e ensaio ---------- */
 .layout-v2 .qb,.layout-v2 .pself-btn{border-radius:11px!important;font-weight:700!important}
