@@ -49,12 +49,12 @@
 </div></header>
 
 <nav class="tabs"><div class="tabs-in">
-  <button class="tab active" data-t="dash"><span class="ti">📊</span>Dashboard</button>
-  <button class="tab" data-t="cal"><span class="ti">📅</span>Calendário</button>
-  <button class="tab" data-t="songs"><span class="ti">🎸</span>Músicas</button>
-  <button class="tab" data-t="letras"><span class="ti">🎤</span>Letras</button>
-  <button class="tab" data-t="farda"><span class="ti">👔</span>Farda</button>
-  <button class="tab" data-t="equipe"><span class="ti">👥</span>Equipe</button>
+  <button class="tab active" data-t="dash"><span class="ti"><i data-lucide="layout-dashboard"></i></span>Dashboard</button>
+  <button class="tab" data-t="cal"><span class="ti"><i data-lucide="calendar-range"></i></span>Calendário</button>
+  <button class="tab" data-t="songs"><span class="ti"><i data-lucide="guitar"></i></span>Músicas</button>
+  <button class="tab" data-t="letras"><span class="ti"><i data-lucide="mic-vocal"></i></span>Letras</button>
+  <button class="tab" data-t="farda"><span class="ti"><i data-lucide="shirt"></i></span>Farda</button>
+  <button class="tab" data-t="equipe"><span class="ti"><i data-lucide="users"></i></span>Equipe</button>
 </div></nav>
 
 <main class="wrap">
@@ -116,6 +116,26 @@
 
 <div class="toast" id="toast"></div>
 
+<!-- TELEPROMPTER TELA CHEIA (modo palco) -->
+<div id="tpFull" class="tp-full">
+  <div class="tp-full-head">
+    <div class="tp-full-title" id="tpFullTitle">—</div>
+    <button class="tp-full-x" onclick="tpCloseFull()" aria-label="Fechar">✕</button>
+  </div>
+  <div class="tp-full-scroll" id="tpFullScroll">
+    <pre class="tp-full-pre" id="tpFullPre"></pre>
+    <div class="tp-full-end">— fim —</div>
+  </div>
+  <div class="tp-full-bar">
+    <button class="tp-full-play" id="tpFullPlay" onclick="tpTogglePlay()" aria-label="Tocar/pausar">▶</button>
+    <div class="tp-full-speed">
+      <div class="tp-speed-ticks"><span>Lento</span><span>Médio</span><span>Rápido</span></div>
+      <input type="range" id="tpFullRange" min="0" max="100" step="1" value="22" oninput="tpSpeedChanged()">
+    </div>
+    <button class="tp-full-restart" onclick="tpRestart()" aria-label="Reiniciar">↺</button>
+  </div>
+</div>
+
 <div class="modal" id="ytModal" onclick="if(event.target===this)closeYt()">
   <div class="modal-box yt-box" style="max-width:620px">
     <div class="modal-head"><span id="ytTitle">Vídeo</span><button class="modal-x" onclick="closeYt()">✕</button></div>
@@ -146,6 +166,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
 <script src="app.js"></script>
 </body>
 </html>
