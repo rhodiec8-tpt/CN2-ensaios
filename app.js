@@ -98,6 +98,7 @@ function startApp(){
   else{b.textContent="👁 VISITANTE";b.className="badge b-vis";}
   document.querySelector("header.top").classList.add("compact");
   listen();
+  drawIcons();
 }
 function listen(){
   db.ref(ROOT+"/songs").on("value",s=>{const d=s.val();songs=d?Object.values(d).sort((a,b)=>(a.order||0)-(b.order||0)):Object.values(defSongs());renderAll();},()=>toast("Erro ao carregar músicas","err"));
@@ -133,49 +134,67 @@ function editArea(taId,value,placeholder,extraClass){
 }
 
 /* ===== Teleprompter ===== */
-let _tpTimer=null,_tpRunning=false;
-function tpStart(containerId,speedId){
-  const el=document.getElementById(containerId);if(!el)return;
-  _tpRunning=true;
-  const btn=el.closest('.song,section')?.querySelector('.tp-play')||document.querySelector('.tp-play[data-container="'+containerId+'"]');
-  if(btn){btn.classList.add('running');btn.textContent='⏸';}
-  el.classList.add('tp-active');
-  let _last=null,_acc=0; // controla rolagem por tempo real (px/segundo), consistente em qualquer celular
-  function tick(ts){
-    if(!_tpRunning)return;
-    if(_last===null)_last=ts;
-    const dt=(ts-_last)/1000; // segundos desde o último frame
-    _last=ts;
-    const sp=document.getElementById(speedId);
-    const spd=sp?parseFloat(sp.value):1;
-    // velocidade base bem lenta: ~6px/s no valor 1 (≈ metade do anterior)
-    const pxPerSec=spd*6;
-    _acc+=pxPerSec*dt;
-    if(_acc>=1){const move=Math.floor(_acc);el.scrollTop+=move;_acc-=move;}
-    // Para no fim
-    if(el.scrollTop+el.clientHeight>=el.scrollHeight-4){tpStop(containerId,speedId);return;}
-    _tpTimer=requestAnimationFrame(tick);
+/* ===== TELEPROMPTER TELA CHEIA (modo palco) =====
+   Slider 0..100 mapeado para px/segundo, com curva suave.
+   Lento de verdade na esquerda; rápido controlado na direita. */
+let _tpRAF=null,_tpPlaying=false,_tpLast=null,_tpAcc=0;
+/* mapeia 0..100 -> px/s. Curva: 0=2px/s (bem lento), 50≈12px/s (médio), 100≈34px/s (rápido) */
+function tpSpeedPxPerSec(){
+  const r=document.getElementById("tpFullRange");
+  const v=r?parseFloat(r.value):22;        // 0..100
+  const t=v/100;                            // 0..1
+  // curva quadrática suave: começa bem devagar e acelera no fim
+  return 2 + (32 * t * t);                  // 2 .. 34 px/s
+}
+function tpOpenFull(id,kind){               // kind: 'cifra' | 'letra'
+  const s=songs.find(x=>x.id===id);if(!s)return;
+  const txt=kind==="letra"?(s.letraTxt||""):(s.cifraTxt||"");
+  if(!txt.trim())return;
+  document.getElementById("tpFullTitle").textContent=(kind==="letra"?"🎤 ":"🎸 ")+s.title+(s.tom&&kind!=="letra"?"  ·  Tom: "+s.tom:"");
+  document.getElementById("tpFullPre").innerHTML=renderBold(esc(txt));
+  document.getElementById("tpFullScroll").scrollTop=0;
+  document.getElementById("tpFull").classList.add("show");
+  document.body.style.overflow="hidden";
+  _tpPlaying=false;_tpAcc=0;_tpLast=null;
+  const pb=document.getElementById("tpFullPlay");pb.textContent="▶";pb.classList.remove("on");
+}
+function tpCloseFull(){
+  _tpPlaying=false;
+  if(_tpRAF){cancelAnimationFrame(_tpRAF);_tpRAF=null;}
+  document.getElementById("tpFull").classList.remove("show");
+  document.body.style.overflow="";
+}
+function tpTogglePlay(){
+  const pb=document.getElementById("tpFullPlay");
+  if(_tpPlaying){
+    _tpPlaying=false;pb.textContent="▶";pb.classList.remove("on");
+    if(_tpRAF){cancelAnimationFrame(_tpRAF);_tpRAF=null;}
+  }else{
+    _tpPlaying=true;pb.textContent="⏸";pb.classList.add("on");
+    _tpLast=null;
+    _tpRAF=requestAnimationFrame(tpTick);
   }
-  _tpTimer=requestAnimationFrame(tick);
 }
-function tpStop(containerId,speedId){
-  _tpRunning=false;
-  if(_tpTimer){cancelAnimationFrame(_tpTimer);_tpTimer=null;}
-  const el=document.getElementById(containerId);
-  if(el)el.classList.remove('tp-active');
-  const btn=document.querySelector('.tp-play[data-container="'+containerId+'"]');
-  if(btn){btn.classList.remove('running');btn.textContent='▶';}
+function tpTick(ts){
+  if(!_tpPlaying)return;
+  const sc=document.getElementById("tpFullScroll");if(!sc){return;}
+  if(_tpLast===null)_tpLast=ts;
+  const dt=(ts-_tpLast)/1000;_tpLast=ts;
+  _tpAcc+=tpSpeedPxPerSec()*dt;
+  if(_tpAcc>=1){const mv=Math.floor(_tpAcc);sc.scrollTop+=mv;_tpAcc-=mv;}
+  if(sc.scrollTop+sc.clientHeight>=sc.scrollHeight-2){     // chegou ao fim
+    _tpPlaying=false;const pb=document.getElementById("tpFullPlay");pb.textContent="▶";pb.classList.remove("on");return;
+  }
+  _tpRAF=requestAnimationFrame(tpTick);
 }
-function tpToggle(containerId,speedId){
-  if(_tpRunning){tpStop(containerId,speedId);}else{tpStart(containerId,speedId);}
-}
-function tpReset(containerId,speedId){
-  tpStop(containerId,speedId);
-  const el=document.getElementById(containerId);
-  if(el)el.scrollTop=0;
+function tpSpeedChanged(){ /* a curva é lida ao vivo no tick; nada a fazer aqui */ }
+function tpRestart(){
+  const sc=document.getElementById("tpFullScroll");if(sc)sc.scrollTop=0;
 }
 
-function renderAll(){renderDash();renderCal();renderSongs();renderLetras();renderFarda();renderEquipe();cd();}
+function renderAll(){renderDash();renderCal();renderSongs();renderLetras();renderFarda();renderEquipe();cd();drawIcons();}
+/* (re)desenha os ícones Lucide depois que o app monta as telas dinâmicas */
+function drawIcons(){ if(window.lucide&&lucide.createIcons){ try{ lucide.createIcons(); }catch(e){} } }
 
 function renderDash(){
   const tot=songs.length,ens=songs.filter(s=>cnt(s.id)>0).length,pr=songs.filter(s=>cnt(s.id)>=3).length,done=rehs.filter(r=>mlen(r.marked)>0).length;
@@ -271,29 +290,22 @@ function renderSongs(){
 function songCard(s){
   const c=cnt(s.id),[sc,sl]=sts(c),ce=canEdit();
   const np=s.parts?Object.values(s.parts).filter(x=>x&&x.trim()).length:0;
-  const tpId="tp-"+s.id,tpSpId="tps-"+s.id;
-  // Teleprompter bar HTML (só para leitura)
-  const tpBar=`<div class="tp-bar">
-    <span class="tp-label">📜 Teleprompter</span>
-    <button class="tp-play" data-container="${tpId}" onclick="tpToggle('${tpId}','${tpSpId}')">▶</button>
-    <div class="tp-speed-wrap"><label>Vel.</label><input class="tp-speed" type="range" id="${tpSpId}" min="0.4" max="6" step="0.1" value="1"></div>
-    <button class="tp-reset" onclick="tpReset('${tpId}','${tpSpId}')">↺ Reiniciar</button>
-  </div>`;
   return `<div class="song"><div class="s-top"><span class="sdot sd-${sc}"></span>
     <div class="s-info"><div class="nm">${esc(s.title)}</div><div class="ar">${esc(s.artist)}</div>
       <div class="s-tags"><span class="s-tag">${sl}</span>${s.tom?`<span class="s-tag">Tom: ${esc(s.tom)}</span>`:""}</div></div>
     <div class="s-cnt"><div class="v">${c}</div><div class="l">ensaios</div></div></div>
-    <div class="s-act"><button class="sa yt" onclick="openYt('${s.id}')">▶ Vídeo</button><button class="sa inst" onclick="openPart('${s.id}')">🎼 Por instrumento${np?`<span class="badge-n">${np}</span>`:""}</button><a class="sa cf" href="${esc(s.cifraUrl)}" target="_blank">📄 Cifra online</a></div>
-    ${s.notes?`<div class="note">📌 ${esc(s.notes)}</div>`:""}
+    <div class="s-act"><button class="sa yt" onclick="openYt('${s.id}')"><i data-lucide="tv-minimal-play"></i> Vídeo</button><button class="sa inst" onclick="openPart('${s.id}')"><i data-lucide="music-4"></i> Instrumentos${np?`<span class="badge-n">${np}</span>`:""}</button><a class="sa cf" href="${esc(s.cifraUrl)}" target="_blank"><i data-lucide="file-text"></i> Cifra online</a></div>
+    ${s.notes?`<div class="note"><i data-lucide="pin"></i> ${esc(s.notes)}</div>`:""}
+    ${s.cifraTxt?`<button class="tp-card" onclick="tpOpenFull('${s.id}','cifra')"><span class="tp-card-ic"><i data-lucide="scroll-text"></i></span><span class="tp-card-tx"><b>Teleprompter</b><small>Cifra em tela cheia</small></span><i data-lucide="chevron-right" class="tp-card-go"></i></button>`:""}
     ${ce?`<details class="ed"><summary>Editar cifra, tom, vídeo e notas</summary>
       <input class="tinput" id="tom-${s.id}" value="${esc(s.tom)}" placeholder="Tom (ex: E, Gm, capotraste 2ª)">
       <input class="tinput" id="nt-${s.id}" value="${esc(s.notes)}" placeholder="Notas (ex: atenção na virada)">
       ${role==="admin"?`<input class="tinput" id="vid-${s.id}" value="${esc(s.videoUrl||"")}" placeholder="Link do vídeo YouTube (cole p/ abrir dentro do app)">`:""}
       ${editArea("cf-"+s.id,s.cifraTxt,"Cifra geral da música... Use **palavra** para negrito")}
       <div class="tsave"><button id="cfb-${s.id}" onclick="saveCifra('${s.id}')">Salvar</button><span class="ti">edição do Levita CN2</span></div>
-      ${role==="admin"?`<button class="del-song" onclick="delSong('${s.id}','${esc(s.title).replace(/'/g,"")}')">🗑 Excluir música</button>`:""}</details>`
-    :(s.cifraTxt?`<button class="read-full" onclick="this.nextElementSibling.classList.remove('hidden');this.style.display='none'">📄 Ver cifra geral + Teleprompter</button>
-      <div class="hidden">${tpBar}<div class="tp-scroll-container" id="${tpId}"><pre class="read-pre" style="margin:0;border-radius:0 0 11px 11px;border-top:none">${renderBold(esc(s.cifraTxt))}</pre></div></div>`:"")}
+      ${role==="admin"?`<button class="del-song" onclick="delSong('${s.id}','${esc(s.title).replace(/'/g,"")}')"><i data-lucide="trash-2"></i> Excluir música</button>`:""}</details>`
+    :(s.cifraTxt?`<button class="read-full" onclick="this.nextElementSibling.classList.remove('hidden');this.style.display='none'"><i data-lucide="file-text"></i> Ver cifra geral</button>
+      <div class="hidden"><pre class="read-pre" style="margin:8px 0 0">${renderBold(esc(s.cifraTxt))}</pre></div>`:"")}
   </div>`;
 }
 function setF(f){filt=f;renderSongs();}
@@ -419,17 +431,11 @@ function renderLetras(){
   document.getElementById("letraF").innerHTML=[["all","Todas",songs.length]].concat(CO.map(c=>[c,C[c].d,songs.filter(s=>s.culto===c).length])).map(([k,l,n])=>`<button class="fb ${k===lfilt?'active':''}" onclick="setLF('${k}')">${l}<span class="fn">${n}</span></button>`).join("");
   const cs=lfilt==="all"?CO:[lfilt],ce=canEdit();
   document.getElementById("letraL").innerHTML=cs.map(c=>{const l=songs.filter(s=>s.culto===c);if(!l.length)return"";return `<div class="cblk"><div class="chd"><div><div class="cd-d">${C[c].d}</div><div class="cd-s">${C[c].s}</div></div></div>${l.map(s=>{
-    const tpId="tpl-"+s.id,tpSpId="tpls-"+s.id;
-    const tpBar=`<div class="tp-bar">
-      <span class="tp-label">📜 Teleprompter</span>
-      <button class="tp-play" data-container="${tpId}" onclick="tpToggle('${tpId}','${tpSpId}')">▶</button>
-      <div class="tp-speed-wrap"><label>Vel.</label><input class="tp-speed" type="range" id="${tpSpId}" min="0.4" max="6" step="0.1" value="1"></div>
-      <button class="tp-reset" onclick="tpReset('${tpId}','${tpSpId}')">↺ Reiniciar</button>
-    </div>`;
-    return `<div class="song"><div class="s-top"><div class="s-info"><div class="nm">🎤 ${esc(s.title)}</div><div class="ar">${esc(s.artist)}</div></div><button class="sa yt" onclick="openYt('${s.id}')">▶</button></div>
+    return `<div class="song"><div class="s-top"><div class="s-info"><div class="nm"><i data-lucide="mic-vocal"></i> ${esc(s.title)}</div><div class="ar">${esc(s.artist)}</div></div><button class="sa yt" onclick="openYt('${s.id}')"><i data-lucide="tv-minimal-play"></i></button></div>
+    ${s.letraTxt?`<button class="tp-card" onclick="tpOpenFull('${s.id}','letra')"><span class="tp-card-ic"><i data-lucide="scroll-text"></i></span><span class="tp-card-tx"><b>Teleprompter</b><small>Letra em tela cheia, rola sozinha</small></span><i data-lucide="chevron-right" class="tp-card-go"></i></button>`:""}
     ${ce?`${editArea("ly-"+s.id,s.letraTxt,"Cole a letra aqui... Use **palavra** para negrito","lyr")}<div class="tsave"><button id="lyb-${s.id}" onclick="saveLetra('${s.id}')">Salvar letra</button><span class="ti">edição do Levita CN2</span></div>`
-    :(s.letraTxt?`<button class="read-full" onclick="this.nextElementSibling.classList.remove('hidden');this.style.display='none'">🎤 Ver letra + Teleprompter</button>
-      <div class="hidden">${tpBar}<div class="tp-scroll-container" id="${tpId}"><pre class="read-pre lyr" style="margin:0;border-radius:0 0 11px 11px;border-top:none">${renderBold(esc(s.letraTxt))}</pre></div></div>`:`<div class="empty-txt">Letra ainda não adicionada.</div>`)}
+    :(s.letraTxt?`<button class="read-full" onclick="this.nextElementSibling.classList.remove('hidden');this.style.display='none'"><i data-lucide="mic-vocal"></i> Ver letra</button>
+      <div class="hidden"><pre class="read-pre lyr" style="margin:8px 0 0">${renderBold(esc(s.letraTxt))}</pre></div>`:`<div class="empty-txt">Letra ainda não adicionada.</div>`)}
     </div>`;}).join("")}</div>`;}).join("");
 }
 function setLF(f){lfilt=f;renderLetras();}
